@@ -1,0 +1,41 @@
+<!--
+  Generated template for the RecheckListPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title><span>复检列表</span></ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="下拉刷新" refreshingSpinner="circles" refreshingText="正在刷新...">
+    </ion-refresher-content>
+  </ion-refresher>
+  <ion-list>
+    <ion-item-sliding *ngFor="let obj of this.records" (click)="onShowDetail(obj)">
+      <ion-item>
+        <ion-thumbnail item-start>
+          <img [src]="obj.minUrl">
+        </ion-thumbnail>
+        <h2 style="margin-top:4px;">{{obj.progressDetail}}</h2>
+        <p>复检人: {{obj.creatorUserName}}</p>
+        <p>复检时间:{{obj.creationTime | date:'yyyy-MM-dd'}}</p>
+      </ion-item>
+    </ion-item-sliding>
+  </ion-list>
+  <ion-infinite-scroll (ionInfinite)="loadDate($event,false)" [enabled]='infiniteScrollEnabled'>
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <button color="danger" (click)="addCheck()" ion-button block>新增</button>
+  </ion-toolbar>
+</ion-footer>

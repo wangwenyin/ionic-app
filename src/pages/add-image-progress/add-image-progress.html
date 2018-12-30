@@ -1,0 +1,80 @@
+<!--
+  Generated template for the AddCheckPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title><span>新建形象进度</span></ion-title>
+    <ion-buttons right>
+      <button ion-button icon-only>
+        <ion-icon ios="ios-cloud-done" md="md-cloud-done"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list>
+    <ion-item>
+      <ion-label>相册名称</ion-label>
+      <ion-input type="text" [(ngModel)]="taskInfo" (keyup)="onKey($event,50)"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>相册属性</ion-label>
+      <ion-select cancelText="取消" okText="确定" [(ngModel)]="gender">
+        <ion-option value="f">重大事件</ion-option>
+        <ion-option value="m">安全文明</ion-option>
+        <ion-option value="a">进度展示</ion-option>
+        <ion-option value="b">质量展示</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>相册时间</ion-label>
+      <ion-datetime cancelText="取消" doneText="确定" [max]="nowDate" displayFormat="YYYY-MM-DD" ></ion-datetime>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>周序号</ion-label>
+      <ion-select cancelText="取消" okText="确定" [(ngModel)]="model">
+          <ion-option value="1">1</ion-option>
+          <ion-option value="2">2</ion-option>
+          <ion-option value="3">3</ion-option>
+          <ion-option value="4">4</ion-option>
+          <ion-option value="5">5</ion-option>
+        </ion-select>
+    </ion-item>
+
+
+    <ion-item>
+      <ion-label>备注</ion-label>
+      <!-- <ion-toggle [(ngModel)]="isOk"></ion-toggle> -->
+      <ion-textarea rows="5" placeholder="请输入备注" [(ngModel)]="input" (keyup)="onKey($event,200)"></ion-textarea>
+    </ion-item>
+
+    <ion-item-group>
+      <ion-item-divider color="light">
+        <ion-icon item-start ios="ios-images" md="md-images"></ion-icon>
+        图片
+        <ion-icon item-end padding-right ios="ios-image" md="md-image" (click)="onLocalImage()"></ion-icon>
+        <ion-icon item-end padding-right ios="ios-camera" md="md-camera" (click)="onCameraImage()"></ion-icon>
+      </ion-item-divider>
+      <ion-grid>
+        <ion-row>
+          <ion-col col-3 *ngFor="let view of viewItems;let i=index">
+            <img *ngIf="!view.viewId" [src]="view.thumbPath" (click)="onPrvIamge(view.path)">
+          </ion-col>
+          <ion-col col-3 *ngFor="let image of newIamgeFile;let i=index">
+            <img [src]="image.data" imageViewer="OTHER_IMAGE_URL" (click)="onPrvIamge(image.data)">
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item-group>
+  </ion-list>
+</ion-content>

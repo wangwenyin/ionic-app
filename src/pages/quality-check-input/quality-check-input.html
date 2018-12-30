@@ -1,0 +1,109 @@
+<!--
+  Generated template for the QualityManagePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-toolbar>
+    <!-- <ion-buttons left>
+            <button ion-button icon-only (click)="goBack()">
+                <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+              </button>
+          </ion-buttons> -->
+    <ion-buttons left>
+      <button ion-button icon-only (click)="goBack()">
+        <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>
+      <span>整改反馈</span>
+    </ion-title>
+
+  </ion-toolbar>
+
+</ion-header>
+<ion-content>
+  <!-- <ion-list>
+    <ion-list-header text-center>
+      <span>复检反馈</span>
+    </ion-list-header>
+    <ion-item>
+      <ion-label>是否合格</ion-label>
+      <ion-toggle checked="true" [(ngModel)]="isOk"></ion-toggle>
+    </ion-item>
+    <ion-item>
+      <ion-label>复检意见</ion-label>
+      <ion-textarea rows="5" [(ngModel)]="detail"></ion-textarea>
+    </ion-item>
+    <ion-row>
+      <button color="danger" (click)="onSubmit()" ion-button block>提交</button>
+    </ion-row>
+  </ion-list> -->
+  <ion-list>
+    <ion-list-header>
+      整改信息
+    </ion-list-header>
+    <ion-item>
+      <ion-label>处理情况</ion-label>
+      <ion-textarea rows="5" readonly [(ngModel)]="record.detail"></ion-textarea>
+    </ion-item>
+    <ion-item>
+      <ion-label>整改时间</ion-label>
+      <ion-label text-right>{{record.creationTime | date:'yyyy-MM-dd'}}</ion-label>
+      <!-- <ion-datetime cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD" [(ngModel)]="obj.creationTime"></ion-datetime> -->
+    </ion-item>
+    <ion-item-group>
+      <ion-item-divider color="light">
+        <ion-icon item-start ios="ios-images" md="md-images"></ion-icon>
+        整改后照片/视频
+        <!-- <ion-icon item-end padding-right ios="ios-image" md="md-image" (click)="onLocalImage()"></ion-icon>
+            <ion-icon item-end padding-right ios="ios-camera" md="md-camera" (click)="onCameraImage()"></ion-icon> -->
+      </ion-item-divider>
+      <ion-grid>
+        <ion-row>
+          <ion-col col-3 *ngFor="let view of imageList;let i=index">
+            <img [src]="view.url" (click)="onPrvIamge(view.url)">
+          </ion-col>
+          <!-- <ion-col col-3 *ngFor="let image of newIamgeFile;let i=index">
+                <img [src]="image.data" imageViewer="OTHER_IMAGE_URL" (click)="onPrvIamge(image.data)">
+              </ion-col> -->
+        </ion-row>
+      </ion-grid>
+    </ion-item-group>
+    <ion-item>
+      <ion-label>工程部复检人</ion-label>
+      <ion-label text-right>{{record.recheckEngineerName}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>是否合格</ion-label>
+      <!-- <ion-label text-right>{{record.isPass ? '是' : '否'}}</ion-label> -->
+      <ion-toggle *ngIf="type === 2" [(ngModel)]="record.isPass"></ion-toggle>
+      <ion-toggle disabled *ngIf="type !== 2" [(ngModel)]="record.isPass"></ion-toggle>
+    </ion-item>
+    <ion-item>
+      <ion-label>复检意见</ion-label>
+      <ion-textarea rows="5" *ngIf="type === 2" [(ngModel)]="record.engineerDetail"></ion-textarea>
+      <ion-textarea rows="5" *ngIf="type !== 2" readonly [(ngModel)]="record.engineerDetail"></ion-textarea>
+    </ion-item>
+    <ion-item>
+      <ion-label>管监复检人</ion-label>
+      <ion-label text-right>{{record.recheckSupervisorName}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>是否合格</ion-label>
+      <!-- <ion-label text-right>{{record.isOk ? '是' : '否'}}</ion-label> -->
+      <ion-toggle  *ngIf="type === 1" [(ngModel)]="record.isOk"></ion-toggle>
+      <ion-toggle disabled *ngIf="type !== 1" [(ngModel)]="record.isOk"></ion-toggle>
+    </ion-item>
+    <ion-item>
+      <ion-label>复检意见</ion-label>
+      <ion-textarea rows="5" *ngIf="type === 1" [(ngModel)]="record.supervisorDetail" ></ion-textarea>
+      <ion-textarea rows="5" *ngIf="type !== 1" readonly [(ngModel)]="record.supervisorDetail" ></ion-textarea>
+    </ion-item>
+  </ion-list>
+  <ion-row *ngIf="canUpdate">
+    <button color="danger" (click)="onSubmit()" ion-button block>提交</button>
+  </ion-row>
+</ion-content>

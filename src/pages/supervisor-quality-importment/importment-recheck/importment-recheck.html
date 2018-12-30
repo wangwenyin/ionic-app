@@ -1,0 +1,86 @@
+<!--
+  Generated template for the ImportmentRecheckPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title><span>复检详情</span></ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    <!-- <div *ngFor="let obj of records;let i=index"> -->
+        <ion-list>
+          <ion-list-header>
+            <!-- 第{{records.length - i}}次复检 -->
+            复检详情
+          </ion-list-header>
+          <!-- <ion-item>
+              <ion-label>状态</ion-label>
+              <ion-label text-right>
+                状态一
+              </ion-label>
+            </ion-item> -->
+        
+            <ion-item>
+              <ion-label>复检问题描述</ion-label>
+              <ion-textarea rows="5" readonly [(ngModel)]="question.detail" ></ion-textarea>
+            </ion-item>
+        
+            <ion-item>
+              <ion-label>复检时间</ion-label>
+              <ion-label text-right>
+                {{records.creationTime | date:'yyyy-MM-dd'}}
+              </ion-label>
+            </ion-item>
+        
+            <ion-item>
+              <ion-label>计划完成时间</ion-label>
+              <ion-label text-right>
+                  {{question.overTime | date:'yyyy-MM-dd'}}
+              </ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-label>月度节点</ion-label>
+              <ion-textarea rows="5" readonly [(ngModel)]="records.monthlyNode" ></ion-textarea>
+            </ion-item>
+        
+            <ion-item>
+              <ion-label>进度情况</ion-label>
+              <ion-textarea rows="5" readonly [(ngModel)]="records.progressDetail" ></ion-textarea>
+            </ion-item>
+        
+            <ion-item>
+              <ion-label>是否完成</ion-label>
+              <ion-label text-right>
+                  {{records.finishRate === 100 ? '是' : '否'}}
+              </ion-label>
+            </ion-item>
+        
+            <ion-item-group>
+              <ion-item-divider color="light">
+                <ion-icon item-start ios="ios-images" md="md-images"></ion-icon>
+                复检图片
+               </ion-item-divider>
+              <ion-grid>
+                <ion-row>
+                <ion-col col-3 *ngFor="let image of records.minPathList;let i=index">
+                    <img [src]="image" imageViewer="OTHER_IMAGE_URL" (click)="onPrvIamge(data)">
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-item-group>
+        </ion-list>
+      <!-- </div> -->
+  
+</ion-content>
+<!-- <ion-footer>
+    <ion-toolbar>
+      <button color="danger" (click)="addCheck()" ion-button block>新增</button>
+    </ion-toolbar>
+  </ion-footer> -->

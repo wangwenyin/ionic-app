@@ -1,0 +1,7 @@
+{
+  "name": "bim-app",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}

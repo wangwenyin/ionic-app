@@ -1,0 +1,26 @@
+page-local-file-preview {
+  .pdf-tool{
+
+  }
+  .pdf-tool button {
+    margin: 0em;
+
+  }
+  .pdf-tool ion-icon {
+    font-size: 1.6em;
+  }
+  .annotationLayer {
+    position: absolute;
+    z-index: 200;
+    /*max-width: 20em;*/
+    /*background-color: #FFFF99;*/
+    /*box-shadow: 0px 2px 5px #333;*/
+    /*border-radius: 2px;*/
+    /*padding: 0.6em;*/
+    /*margin-left: 5px;*/
+    /*cursor: pointer;*/
+    /*word-wrap: break-word;*/
+    top: 0;
+    left: 0;
+  }
+}

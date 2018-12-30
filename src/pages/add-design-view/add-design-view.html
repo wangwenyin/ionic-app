@@ -1,0 +1,58 @@
+<!--
+  Generated template for the AddDesignViewPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-buttons start>
+      <button ion-button icon-only color="royal" (click)="onClose()">
+        <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title><span>新增视图</span></ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only  (click)="onAddView()">
+        <ion-icon ios="ios-cloud-done" md="md-cloud-done"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding style="border-top: none">
+  <ion-list>
+    <ion-item no-lines style="border-bottom:1px solid #b2b2b2">
+      <ion-label>名称</ion-label>
+      <ion-input type="text" [(ngModel)]="name" (keyup)="onKey($event,50)"></ion-input>
+    </ion-item>
+    <ion-item no-lines style="border-bottom:1px solid #b2b2b2">
+      <ion-label>描述</ion-label>
+      <ion-textarea rows="5" placeholder="请输入备注信息"  [(ngModel)]="description" (keyup)="onKey($event,200)"></ion-textarea>
+    </ion-item>
+    <ion-item-group>
+      <ion-item-divider color="light">
+        <ion-icon item-start ios="ios-people" md="md-people"></ion-icon>
+         共享人
+        <ion-icon item-end padding-right ios="ios-person-add" md="md-person-add" (click)="onAddUser()"></ion-icon>
+      </ion-item-divider>
+      <ion-item text-wrap>
+        <label *ngFor="let user of this.userItemList">
+          {{getShowName(user) + ";"}}
+        </label>
+      </ion-item>
+    </ion-item-group>
+    <ion-item-group>
+      <ion-item-divider color="light">
+        <ion-icon item-start ios="ios-images" md="md-images"></ion-icon>
+         视图
+      </ion-item-divider>
+      <ion-item>
+        <img [src]="'data:image/jpeg;base64,'+ thumbnail">
+      </ion-item>
+    </ion-item-group>
+  </ion-list>
+</ion-content>

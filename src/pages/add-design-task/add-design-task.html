@@ -1,0 +1,84 @@
+<!--
+  Generated template for the AddDesignTaskPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-buttons start>
+      <button ion-button icon-only color="royal" (click)="onClose()">
+        <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title><span>新增任务</span></ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only  (click)="onAddTask()">
+        <ion-icon ios="ios-cloud-done" md="md-cloud-done"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label>标题</ion-label>
+      <ion-input type="text" [(ngModel)]="input.title" (keyup)="onKey($event,50)"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>描述</ion-label>
+      <ion-textarea  rows="5" placeholder="请输入备注信息"  [(ngModel)]="input.description" (keyup)="onKey($event,200)"></ion-textarea>
+    </ion-item>
+    <ion-item>
+      <ion-label>优先级</ion-label>
+      <ion-select [(ngModel)]="input.priority">
+        <ion-option value="2">紧急</ion-option>
+        <ion-option value="1">重要</ion-option>
+        <ion-option value="0" selected>一般</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>到期日</ion-label>
+      <ion-datetime displayFormat="YYYY-MM-DD" [(ngModel)]="input.expirationTime"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label>问题类型</ion-label>
+      <ion-select [(ngModel)]="input.questionClassfy">
+        <ion-option></ion-option>
+        <ion-option>碰撞</ion-option>
+        <ion-option>净空</ion-option>
+        <ion-option>标注</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item-group>
+      <ion-item-divider color="light">
+        <ion-icon item-start ios="ios-people" md="md-people"></ion-icon>
+        责任人
+        <ion-icon item-end padding-right ios="ios-person-add" md="md-person-add" (click)="onAddUser()"></ion-icon>
+      </ion-item-divider>
+      <ion-item text-wrap>
+        <ion-label>
+          {{getShowName(userItem)}}
+        </ion-label>
+      </ion-item>
+    </ion-item-group>
+    <ion-item-divider>
+      <ion-label>邮件通知</ion-label>
+      <ion-toggle  [(ngModel)]="input.isSendEmail" ></ion-toggle>
+    </ion-item-divider>
+    <ion-item-group>
+      <ion-item-divider color="light">
+        <ion-icon item-start ios="ios-images" md="md-images"></ion-icon>
+        视图
+      </ion-item-divider>
+      <ion-item>
+        <img [src]="'data:image/jpeg;base64,'+ thumbnail">
+      </ion-item>
+    </ion-item-group>
+  </ion-list>
+</ion-content>
+

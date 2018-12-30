@@ -1,0 +1,70 @@
+<!--
+  Generated template for the QualityMainPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-toolbar>
+    <ion-buttons left>
+      <button ion-button icon-only menuToggle>
+        <ion-icon ios="ios-menu" md="md-menu"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>
+      <span>{{projectName}}</span>
+    </ion-title>
+    <!-- <ion-buttons end>
+      <button ion-button icon-only (click)="openModel()">
+        <ion-icon ios="md-cube" md="md-cube"></ion-icon>
+      </button>
+    </ion-buttons> -->
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-grid>
+      <ion-row style="min-height:405px;">
+        <ion-col col-6>
+          <ion-card text-center (click)="onOpenExamine()" style="background-color: #ee6a68; height: 180px;">
+            <ion-card-header>
+              <h2></h2>
+            </ion-card-header>
+            <ion-card-content>
+              <div style="padding:5%" >
+                <img  class="menu-img" src="assets/images/menu12.png">
+              </div>
+              <b class="label-ios-light" style="font-size: 1.3em;">考核巡检</b>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+        <ion-col col-6>
+          <ion-card  text-center (click)="onOpendaily()" style="background-color: #ee6a68; height: 180px;">
+            <ion-card-header>
+              <h2></h2>
+            </ion-card-header>
+            <ion-card-content>
+              <div style="padding:5%">
+                <img  class="menu-img" src="assets/images/menu2.png">
+              </div>
+              <b class="label-ios-light" style="font-size: 1.3em;">日常巡检</b>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+        <ion-col col-6>
+            <ion-card  text-center (click)="onOpenImport()" style="background-color: #ee6a68; height: 180px;">
+              <ion-card-header>
+                <h2></h2>
+              </ion-card-header>
+              <ion-card-content>
+                <div style="padding:5%">
+                  <img  class="menu-img" src="assets/images/menu4.png">
+                </div>
+                <b class="label-ios-light" style="font-size: 1.3em;">重大质量问题</b>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-content>

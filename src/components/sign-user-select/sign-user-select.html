@@ -1,0 +1,18 @@
+<!-- Generated template for the SignUserSelectComponent component -->
+<div class="sign-user-select">
+  <ion-list-header text-center>
+    <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+  </ion-list-header>
+  <ion-scroll scrollY="true">
+    <div style="height: 420px">
+      <ion-list  text-wrap>
+        <ion-item *ngFor="let user of this.userItems" (click)="onClose(user)">
+          <ion-label>{{getShowName(user)}}</ion-label>
+        </ion-item>
+      </ion-list>
+    </div>
+  </ion-scroll>
+  <!--<ion-infinite-scroll (ionInfinite)="onRefresh($event,false)">-->
+  <!--<ion-infinite-scroll-content></ion-infinite-scroll-content>-->
+  <!--</ion-infinite-scroll>-->
+</div>

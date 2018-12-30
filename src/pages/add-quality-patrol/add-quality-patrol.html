@@ -1,0 +1,225 @@
+<!--
+  Generated template for the AddDesignTaskPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+    <ion-navbar>
+      <ion-title><span>新增日常巡查</span></ion-title>
+      <ion-buttons end>
+        <button ion-button icon-only (click)="onSaveRecord()">
+          <ion-icon ios="ios-cloud-done" md="md-cloud-done"></ion-icon>
+        </button>
+      </ion-buttons>
+    </ion-navbar>
+  
+  </ion-header>
+  
+  
+  <ion-content>
+    <ion-list>
+      <ion-list-header>
+        巡查信息
+      </ion-list-header>
+      <ion-item>
+        <ion-label><span class="tip">*</span>检查表</ion-label>
+        <ion-select cancelText="取消" okText="确定" [(ngModel)]="checkTable" (ngModelChange)="changeTable($event)">
+          <ion-option *ngFor="let val of checkTableList" [value]="val.id">{{val.name}}</ion-option>
+          <!-- <ion-option value="f">表一</ion-option> remark
+          <ion-option value="m">表二</ion-option> -->
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label><span class="tip">*</span>工程类别</ion-label>
+        <ion-select cancelText="取消" okText="确定" [(ngModel)]="type" (ngModelChange)="changeTerm($event)">
+          <ion-option *ngFor="let val of checkTermList" [value]="val.id">{{val.name}}</ion-option>
+        </ion-select>
+      </ion-item>
+  
+      <ion-grid>
+        <ion-row>
+          <ion-col col-10>
+            <ion-item style="margin-left:-10px;">
+  
+              <ion-label><span class="tip">*</span>检查项</ion-label>
+              <ion-select cancelText="取消" okText="确定" [(ngModel)]="input.subentryId" (ngModelChange)="getTitle($event)">
+                <ion-option *ngFor="let val of checkPointList" [value]="val.id">{{val.name}}</ion-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+  
+          <ion-col col-2>
+            <ion-buttons>
+              <button ion-button clear icon-only color="danger" (click)="showDetail()">
+                <ion-icon ios="ios-help-circle" md="md-help-circle"></ion-icon>
+              </button>
+            </ion-buttons>
+  
+          </ion-col>
+  
+        </ion-row>
+      </ion-grid>
+  
+       <ion-item>
+        <ion-label><span class="tip">*</span>问题分级</ion-label>
+        <ion-select cancelText="取消" okText="确定" [(ngModel)]="input.questionGrade" >
+          <ion-option *ngFor="let val of questionGradeList" [value]="val.id">{{val.name}}</ion-option>
+        </ion-select>
+      </ion-item>
+  
+      <ion-item>
+        <ion-label><span class="tip">*</span>问题类别</ion-label>
+        <ion-select cancelText="取消" okText="确定" [(ngModel)]="input.questionType" >
+          <ion-option *ngFor="let val of questionTypeList" [value]="val.id">{{val.name}}</ion-option>
+        </ion-select>
+      </ion-item>
+  
+      <!-- <ion-item>
+        <ion-label>单元</ion-label>
+        <ion-select cancelText="取消" okText="确定" [(ngModel)]="input.unit" (ngModelChange)="getTitle($event)">
+          <ion-option *ngFor="let val of unitList" [value]="val.id">{{val.name}}</ion-option>
+        </ion-select>
+      </ion-item> -->
+      <ion-item>
+        <ion-label>是否整改</ion-label>
+        <ion-toggle [(ngModel)]="input.isRectification" (ngModelChange)="needDeal($event)"></ion-toggle>
+      </ion-item>
+      <ion-item>
+        <ion-label>是否砸掉</ion-label>
+        <ion-toggle [(ngModel)]="input.isBroken" (ngModelChange)="needBreak($event)"></ion-toggle>
+      </ion-item>
+      <ion-item>
+        <ion-label>挂接模型</ion-label>
+        <ion-toggle disabled [(ngModel)]="hasModel"></ion-toggle>
+      </ion-item>
+      <ion-item>
+        <ion-label><span class="tip">*</span>检查部位</ion-label>
+        <ion-input type="text" placeholder="请输入检查部位" [(ngModel)]="input.checkSite" (keyup)="onKey($event,50)"></ion-input>
+        <!-- <ion-select cancelText="取消" okText="确定" [(ngModel)]="input.checkSite">
+          <ion-option value="f">部位一</ion-option>
+          <ion-option value="m">部位二</ion-option>
+        </ion-select> -->
+      </ion-item>
+      <ion-item>
+        <ion-label><span class="tip">*</span>检查描述</ion-label>
+        <ion-textarea rows="5" placeholder="请输入检查描述" [(ngModel)]="input.detail" (keyup)="onKey($event,200)"></ion-textarea>
+      </ion-item>
+  
+      <ion-item-group>
+        <ion-item-divider color="light"><span class="tip">*</span>
+          <!-- <ion-icon item-start ios="ios-people" md="md-people"></ion-icon> -->
+          复检人
+          <ion-icon item-end padding-right ios="ios-arrow-forward" md="md-arrow-forward" (click)="onAddUser()"></ion-icon>
+        </ion-item-divider>
+        <ion-item text-right>
+          <ion-label>
+            {{getShowName(userItem)}}
+          </ion-label>
+        </ion-item>
+      </ion-item-group>
+      <!-- <ion-item-group>
+        <ion-item-divider color="light">
+          <ion-icon item-start ios="ios-people" md="md-people"></ion-icon>
+          复检人(工程部)
+          <ion-icon item-end padding-right ios="ios-person-add" md="md-person-add" (click)="onAddUser()"></ion-icon>
+        </ion-item-divider>
+        <ion-item text-wrap>
+          <ion-label>
+            {{getShowName(userItem)}}
+          </ion-label>
+        </ion-item>
+      </ion-item-group> -->
+      <!-- <ion-item>
+        <ion-label>抄送单位</ion-label>
+        <ion-select cancelText="取消" okText="确定" [(ngModel)]="oList" multiple="true">
+          <ion-option value="f">单位一</ion-option>
+          <ion-option value="m">单位二</ion-option>
+          <ion-option value="c">单位三</ion-option>
+        </ion-select>
+      </ion-item> -->
+  
+      <ion-item-group>
+        <ion-item-divider color="light">
+          <!-- <ion-icon item-start ios="ios-images" md="md-images"></ion-icon> -->
+          检查图片
+          <ion-icon item-end padding-right ios="ios-image" md="md-image" (click)="onLocalImage()"></ion-icon>
+          <ion-icon item-end padding-right ios="ios-camera" md="md-camera" (click)="onCameraImage()"></ion-icon>
+        </ion-item-divider>
+        <ion-grid>
+          <ion-row>
+            <ion-col col-3 *ngFor="let view of viewItems;let i=index">
+              <img *ngIf="!view.viewId" [src]="view.thumbPath" (click)="onPrvIamge(view.path)">
+            </ion-col>
+            <ion-col col-3 *ngFor="let image of newIamgeFile;let i=index">
+              <img [src]="image.data" imageViewer="OTHER_IMAGE_URL" (click)="onPrvIamge(image.data)">
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item-group>
+    </ion-list>
+    <!-- <ion-list>
+        <ion-list-header>
+          整改信息
+        </ion-list-header>
+        <ion-item>
+          <ion-label>处理情况</ion-label>
+          <ion-textarea rows="5" placeholder="请输入处理情况" [(ngModel)]="input.description" (keyup)="onKey($event,200)"></ion-textarea>
+        </ion-item>
+        <ion-item>
+          <ion-label>整改时间</ion-label>
+          <ion-datetime cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD" [(ngModel)]="checkDate"></ion-datetime>
+        </ion-item>
+        <ion-item-group>
+          <ion-item-divider color="light">
+            <ion-icon item-start ios="ios-images" md="md-images"></ion-icon>
+            整改后照片/视频
+            <ion-icon item-end padding-right ios="ios-image" md="md-image" (click)="onLocalImage()"></ion-icon>
+            <ion-icon item-end padding-right ios="ios-camera" md="md-camera" (click)="onCameraImage()"></ion-icon>
+          </ion-item-divider>
+          <ion-grid>
+            <ion-row>
+              <ion-col col-3 *ngFor="let view of viewItems;let i=index">
+                <img *ngIf="!view.viewId" [src]="view.thumbPath" (click)="onPrvIamge(view.path)">
+              </ion-col>
+              <ion-col col-3 *ngFor="let image of newIamgeFile;let i=index">
+                <img [src]="image.data" imageViewer="OTHER_IMAGE_URL" (click)="onPrvIamge(image.data)">
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item-group>
+        <ion-item-group>
+          <ion-item-divider color="light">
+            <ion-icon item-start ios="ios-people" md="md-people"></ion-icon>
+            复检人(工程部)
+            <ion-icon item-end padding-right ios="ios-person-add" md="md-person-add" (click)="onAddUser()"></ion-icon>
+          </ion-item-divider>
+          <ion-item text-wrap>
+            <ion-label>
+              {{getShowName(userItem)}}
+            </ion-label>
+          </ion-item>
+        </ion-item-group>
+        <ion-item>
+          <ion-label>复检意见</ion-label>
+          <ion-textarea rows="5" placeholder="请输入处理情况" [(ngModel)]="input.description" (keyup)="onKey($event,200)"></ion-textarea>
+        </ion-item>
+        <ion-item-group>
+          <ion-item-divider color="light">
+            <ion-icon item-start ios="ios-people" md="md-people"></ion-icon>
+            复检人(管监)
+            <ion-icon item-end padding-right ios="ios-person-add" md="md-person-add" (click)="onAddUser()"></ion-icon>
+          </ion-item-divider>
+          <ion-item text-wrap>
+            <ion-label>
+              {{getShowName(userItem)}}
+            </ion-label>
+          </ion-item>
+        </ion-item-group>
+        <ion-item>
+          <ion-label>复检意见</ion-label>
+          <ion-textarea rows="5" placeholder="请输入处理情况" [(ngModel)]="input.description" (keyup)="onKey($event,200)"></ion-textarea>
+        </ion-item>
+      </ion-list> -->
+  </ion-content>

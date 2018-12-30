@@ -1,0 +1,33 @@
+<ion-header>
+
+    <ion-toolbar>
+      <ion-buttons left>
+        <button ion-button icon-only  (click)="onBackPage()">
+          <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+        </button>
+        <button ion-button icon-only>
+            <ion-icon name="md-expand"></ion-icon>
+        </button>
+      </ion-buttons>
+      <ion-title>
+        <span>安全模型</span>
+      </ion-title>
+      <ion-buttons end>
+          <button ion-button icon-only (click)="goList()">
+              <ion-icon ios="ios-list" md="md-list"></ion-icon>
+          </button>
+          <button ion-button icon-only (click)="selectModel($event)">
+            <ion-icon ios="logo-buffer" md="logo-buffer" ></ion-icon>
+          </button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+      <!-- <img src="assets/images/model.png"/> -->
+      <forge-model [forgeModelBroweOption]= "forgeModelBroweOption" (forgeModelEvent)="onModelBrowEvent($event)"></forge-model>
+      <!-- <ion-buttons (click)="addSecurity()" style="z-index:200;position: fixed;top: 16%;left: 84%;">
+        <button ion-button icon-only color="dark">
+            <ion-icon ios="ios-add" md="md-add"></ion-icon>
+        </button>
+      </ion-buttons> -->
+  </ion-content>

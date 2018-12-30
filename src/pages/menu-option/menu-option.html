@@ -1,0 +1,244 @@
+<!--
+  Generated template for the MenuOptionPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <!-- <ion-navbar>
+    <ion-title>menu-option</ion-title>
+  </ion-navbar> -->
+  <ion-toolbar>
+    <ion-buttons left>
+      <!-- <button ion-button icon-only menuToggle>
+        <ion-icon ios="ios-menu" md="md-menu"></ion-icon>
+      </button> -->
+      <button ion-button icon-only (click)="goBack()">
+          <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+        </button>
+    </ion-buttons>
+    <ion-title>
+      <span>{{projectName}}</span>
+    </ion-title>
+    <!-- <ion-buttons end>
+      <button ion-button icon-only (click)="openModel()">
+        <ion-icon ios="md-cube" md="md-cube"></ion-icon>
+      </button>
+    </ion-buttons> -->
+  </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <diV class="bgDiv"></diV>
+  <div>
+    <ion-grid>
+      <ion-row>
+          <ion-col col-4 col-sm-3 col-md-2 col-lg-1 col-xl-1>
+
+              <div style="padding:15%" (click)="goNotice()">
+                <div class="iconImg">
+                  <img class="menu-img" src="assets/images/menu/menu01.png">
+                </div>
+                <diV class="menuTitle">
+                  <span class="info">通知</span>
+                </diV>
+              </div>
+    
+            </ion-col>
+
+        <ion-col col-4 col-sm-3 col-md-2 col-lg-1 col-xl-1>
+
+          <div style="padding:15%" (click)="goTodos()">
+            <div class="iconImg">
+              <img class="menu-img" src="assets/images/menu/menu02.png">
+            </div>
+            <div class="menuTitle">
+              <span class="info">待办事项</span>
+            </div>
+          </div>
+          <!-- <div style="position: absolute;left: 2px; width: 100%;">
+                   
+                  </div> -->
+
+        </ion-col>
+        <ion-col col-4 col-sm-3 col-md-2 col-lg-1 col-xl-1>
+
+          <div style="padding:15%" (click)="goMyCenter()">
+            <div class="iconImg">
+              <img class="menu-img" src="assets/images/menu/menu03.png">
+            </div>
+            <diV class="menuTitle">
+              <span class="info">我的</span>
+            </diV>
+          </div>
+
+        </ion-col>
+       
+
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <diV class="bgDiv"></diV>
+  <div class="midTitle">
+      <!-- 项目管理 -->
+      <div class="container">
+          <h3 class="title"><span>项目管理</span></h3>
+      </div>
+  </div>
+  <div style="margin-top: -4%;">
+    <ion-grid>
+      <ion-row>
+        <ion-col col-4 col-sm-3 col-md-2 col-lg-1 col-xl-1 *ngIf="qualityKPICheck">
+
+          <div style="padding:15%" (click)="onOpenExamine()">
+            <div class="iconImg">
+              <img class="menu-img" src="assets/images/menu/menu11.png">
+            </div>
+            <diV class="menuTitle">
+              <span class="info">质量检查</span>
+            </diV>
+          </div>
+          <!-- <div style="position: absolute;left: 2px; width: 100%;">
+                   
+                  </div> -->
+
+        </ion-col>
+
+        <ion-col col-4 col-sm-3 col-md-2 col-lg-1 col-xl-1 *ngIf="qualityNotKPICheck">
+          <div style="padding:15%" (click)="onOpendaily()">
+            <div class="iconImg">
+              <img class="menu-img" src="assets/images/menu/menu1.png">
+            </div>
+            <diV class="menuTitle">
+              <span class="info">日常质量检查</span>
+            </diV>
+          </div>
+        </ion-col>
+
+        <ion-col col-4 col-sm-3 col-md-2 col-lg-1 col-xl-1 *ngIf="qualityImportmentCheck">
+          <div style="padding:15%" (click)="onOpenImport()">
+            <div class="iconImg">
+              <img class="menu-img" src="assets/images/menu/menu20.png">
+            </div>
+            <diV class="menuTitle">
+              <span class="info">重大质量问题</span>
+            </diV>
+          </div>
+        </ion-col>
+
+        <ion-col col-4 col-sm-3 col-md-2 col-lg-1 col-xl-1 *ngIf="securityKPICheck">
+          <div style="padding:15%" (click)="onOpenSafeExamine()">
+            <div class="iconImg">
+              <img class="menu-img" src="assets/images/menu/menu21.png">
+            </div>
+            <diV class="menuTitle">
+              <span class="info">日常安全文明检查</span>
+            </diV>
+          </div>
+        </ion-col>
+
+        <ion-col col-4 col-sm-3 col-md-2 col-lg-1 col-xl-1 *ngIf="qualityPatrol">
+            <div style="padding:15%" (click)="onOpenDailyPatrol()">
+              <div class="iconImg">
+                <img class="menu-img" src="assets/images/menu/menu12.png">
+              </div>
+              <diV class="menuTitle">
+                <span class="info">日常质量巡检</span>
+              </diV>
+            </div>
+          </ion-col>
+
+        <ion-col col-4 col-sm-3 col-md-2 col-lg-1 col-xl-1 *ngIf="securityPatrol">
+          <div style="padding:15%" (click)="onOpenSafeDaily()">
+            <div class="iconImg">
+              <img class="menu-img" src="assets/images/menu/menu22.png">
+            </div>
+            <diV class="menuTitle">
+              <span class="info">日常安全文明巡查</span>
+            </diV>
+          </div>
+        </ion-col>
+
+        <ion-col col-4 col-sm-3 col-md-2 col-lg-1 col-xl-1>
+          <div style="padding:15%" (click)="onOpenDocument()">
+            <div class="iconImg">
+
+              <img class="menu-img" src="assets/images/menu/menu23.png">
+            </div>
+            <diV class="menuTitle">
+              <span class="info">文档</span>
+            </diV>
+          </div>
+        </ion-col>
+
+        <ion-col col-4 col-sm-3 col-md-2 col-lg-1 col-xl-1>
+          <div style="padding:15%" (click)="onOpenProcess()">
+            <div class="iconImg">
+              <img class="menu-img" src="assets/images/menu/menu31.png">
+            </div>
+            <diV class="menuTitle">
+              <span class="info">进度填报</span>
+            </diV>
+          </div>
+        </ion-col>
+
+        <ion-col col-4 col-sm-3 col-md-2 col-lg-1 col-xl-1>
+          <div style="padding:15%" (click)="openModel()">
+            <div class="iconImg">
+              <img class="menu-img" src="assets/images/menu/menu32.png">
+            </div>
+            <diV class="menuTitle">
+              <span class="info">模型浏览</span>
+            </diV>
+          </div>
+        </ion-col>
+
+        <ion-col col-4 col-sm-3 col-md-2 col-lg-1 col-xl-1>
+
+          <div style="padding:15%" (click)="openPictuce()">
+            <div class="iconImg">
+              <img class="menu-img" src="assets/images/menu/menu33.png">
+            </div>
+            <diV class="menuTitle">
+              <span class="info">形象进度</span>
+            </diV>
+          </div>
+
+        </ion-col>
+
+
+        <!-- <ion-col col-4 col-sm-3 col-md-2 col-lg-1 col-xl-1>
+
+          <div style="padding:15%" (click)="otherSafe()">
+            <div class="iconImg">
+              <img class="menu-img" src="assets/images/menu/menu43.png">
+            </div>
+            <diV class="menuTitle">
+              <span class="info">其他安全问题</span>
+            </diV>
+          </div>
+
+        </ion-col>
+
+        <ion-col col-4 col-sm-3 col-md-2 col-lg-1 col-xl-1>
+
+          <div style="padding:15%" (click)="otherConstructionQuality()">
+            <div class="iconImg">
+              <img class="menu-img" src="assets/images/menu/menu42.png">
+            </div>
+            <diV class="menuTitle">
+              <span class="info">其他质量问题</span>
+            </diV>
+          </div>
+
+        </ion-col> -->
+
+      </ion-row>
+    </ion-grid>
+  </div>
+
+</ion-content>

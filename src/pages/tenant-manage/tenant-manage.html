@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons left>
+      <button ion-button icon-only (click)="geCenter()">
+        <ion-icon name="contact"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-input type="text" [(ngModel)]="searchValue" placeholder="请输入项目名称"></ion-input>
+    <ion-buttons right>
+      <!-- <button ion-button (click)="goMap()" icon-only style="margin-right:10px;">
+        <ion-icon name="pin"></ion-icon>
+      </button> -->
+      <button ion-button icon-only (click)="search($event)">
+        <ion-icon name="search"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="card-background-page">
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content
+        pullingIcon="arrow-dropdown"
+        pullingText="下拉刷新"
+        refreshingSpinner="circles"
+        refreshingText="正在刷新...">
+      </ion-refresher-content>
+  </ion-refresher>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3 *ngFor="let tenant of tenantItems" (click)="onSelectProject(tenant)">
+        <ion-card>
+          <!-- <img [src]="tenant.thumbnailPath">
+          <div class="card-title"> {{tenant.name}}</div>
+          <div class="card-subtitle"></div> -->
+          <ion-card-header color="light" style="background-color: #ee6a68;color: #FFFFFF" class="item-divider-ios"
+            text-center>  {{tenant.name}}
+          </ion-card-header>
+          <!-- <img [src]="tenant.thumbnailPath"> -->
+          <div style="padding-bottom: 75%; height: 0; overflow: hidden; 
+            background-position: center center; background-size: cover;"
+            [ngStyle]="{'background-image': 'url(' + tenant.thumbnailPath + ')'}">
+            <!-- <img alt="用户未上传图片" style="width: 100%" [src]="item.imageUrl" onerror="this.src='./assets/project/default.png'"/> -->
+        </div>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-infinite-scroll (ionInfinite)="$event.waitFor(doInfinite())" [enabled]="infiniteScrollEnabled">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="正在加载..."></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

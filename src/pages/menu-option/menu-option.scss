@@ -1,0 +1,65 @@
+page-menu-option {
+    div.menuTitle {
+        text-align: center;
+    }
+    div.bgDiv {
+        height: 8px;
+        background-color: rgb(241,242,246);
+    }
+    .scroll-content {
+         padding: 0 !important; 
+    }
+    .midTitle {
+        text-align: center;
+        margin-top: 28px;
+        font-size: 14px;
+        font-weight: bold;
+    }
+    .info {
+        color: rgb(61,61,61);
+        font-size: 13px;
+    }
+    .iconImg {
+        padding: 15%;
+        padding-bottom: 8%;
+    }
+      
+    h3.title {
+        color: #F2AE11;
+        font-size: 14px;
+        text-align: center;
+        font-weight: 500;
+        line-height: 1.1;
+    }
+    
+    h3.title span {
+        display: block;
+        /*设置为块级元素会独占一行形成上下居中的效果*/
+        font-size: 14px;
+        color: #212121;
+        position: relative;
+        /*定位横线（当横线的父元素）*/
+    }
+    
+    h3.title span:before,
+    h3.title span:after {
+        content: '';
+        /*CSS伪类用法*/
+        position: absolute;
+        /*定位背景横线的位置*/
+        top: 40%;
+        background: #cccccc;
+        /*宽和高做出来的背景横线*/
+        width: 9%;
+        height: 1px;
+    }
+    
+    h3.title span:before {
+        left: 30%;
+        /*调整背景横线的左右距离*/
+    }
+    
+    h3.title span:after {
+        right: 30%;
+    }
+}

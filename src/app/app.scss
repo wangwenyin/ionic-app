@@ -1,0 +1,71 @@
+// App Global Sass
+// --------------------------------------------------
+// Put style rules here that you want to apply globally. These
+// styles are for the entire app and not just one component.
+// Additionally, this file can be also used as an entry point
+// to import other Sass files to be included in the output CSS.
+//
+// Shared Sass variables, which can be used to adjust Ionic's
+// default Sass variables, belong in "theme/variables.scss".
+//
+// To declare rules for a specific mode, create a child rule
+// for the .md, .ios, or .wp mode classes. The mode class is
+// automatically applied to the <body> element in the app.
+ion-header{
+  // background-color: #ee6a68;
+}
+ion-header ion-title {
+  // background-color: #ee6a68;
+}
+
+ion-header ion-title span{
+  // color: #fafafa;
+  color: rgb(51,51,51);
+  font-size: 18px;
+}
+ion-header ion-icon{
+  // color: #fafafa
+  color: #101634;
+}
+
+.ion-page {
+  background-color: #fff;
+}
+
+.ths-dark-red{
+  background-color: #ee6a68;
+}
+.ths-dark-red span{
+  color: #fafafa
+}
+.ths-dark-red ion-icon{
+  color: #fafafa
+}
+// .segment-ios .segment-button.segment-activated{
+//   background-color: #fb6c6c;
+// }
+// .segment-ios .segment-button{
+//   border-width: 0px;
+// }
+.segment-ios .segment-button.segment-activated{
+  color: #fb6c6c;
+  font-size: 15px;
+  font-weight: bold;
+  background-color: transparent;
+}
+.segment-ios .segment-button{
+  color: #333;
+  border-width: 0px;
+}
+
+.list-header-ios {
+  font-size: 16px;
+}
+
+.select-text {
+  font-weight: bold;
+}
+
+.list-ios .item-block .item-inner {
+  border-bottom: 0.35px solid #f0f0f0 !important;
+}

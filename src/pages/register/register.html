@@ -1,0 +1,82 @@
+<!--
+  Generated template for the RegisterPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<script src="register.ts"></script>
+<ion-header>
+  <ion-toolbar>
+      <ion-buttons left>
+          <button ion-button icon-only  (click)="onBackPage()">
+            <ion-icon name="arrow-back"></ion-icon>
+          </button>
+        </ion-buttons>
+    <ion-title text-center>
+      <span>注册</span>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div class="login-div">
+    <ion-grid>
+      <ion-row>
+        <ion-col col-12>
+          <ion-input type="text" placeholder="请输入手机号码" [(ngModel)]="model.phoneNumber" required minlength="11" maxlength="11" >
+          </ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-9>
+          <ion-input type="number" placeholder="请输入手机验证码" [(ngModel)]="model.validateCode" required maxlength="6">
+          </ion-input>
+        </ion-col>
+        <ion-col col-3>
+            <button ion-button small class="ths-dark-blue" (click)="getValidateCode()" clear [disabled]="canClick">获取验证码
+            </button>
+          </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-12>
+          <ion-input type="password" name="Passwork" placeholder="密码" [(ngModel)]="model.password" validateEqual="PasswordRepeat" required minlength="4" maxlength="20"></ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-12>
+          <ion-input type="password" name="PasswordRepeat" placeholder="密码(核对)" [(ngModel)]="model.passwordRepeat" validateEqual="Passwork" (blur)="validateEqual()"></ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+          <ion-col col-12>
+            <div [hidden]="isEqual_passwork" style="color:red;font:12px">确认密码不一致，请检查您的输入！</div>
+          </ion-col>
+        </ion-row>
+      <ion-row>
+        <ion-col col-12>
+          <ion-input type="text" placeholder="请输入姓名" [(ngModel)]="model.name" required maxlength="20">
+          </ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-12>
+          <ion-input type="text" placeholder="请输入公司名称" [(ngModel)]="model.company" required maxlength="200">
+          </ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-12>
+          <ion-input type="email" placeholder="邮箱地址" [(ngModel)]="model.emailAddress" required maxlength="256">
+          </ion-input>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    
+    <button ion-button block class="ths-dark-blue" style="" (click)="save(model)">
+      <span style="padding-right: 12px">注</span>
+      <span style="padding-left: 12px"> 册</span>
+    </button>
+  </div>
+</ion-content>
+<ion-footer>
+  <h6 text-center style="font-size: small">版权所有 Copyright © 2018   深圳市斯维尔科技股份有限公司</h6>
+</ion-footer>

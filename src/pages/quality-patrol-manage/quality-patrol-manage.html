@@ -1,0 +1,202 @@
+<ion-header>
+  <ion-toolbar class="first-toolbar">
+    <ion-buttons left>
+      <button ion-button icon-only (click)="goBack()">
+        <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+      </button>
+      <!-- <button ion-button icon-only>
+        <ion-icon name="md-expand"></ion-icon>
+      </button> -->
+    </ion-buttons>
+    <ion-segment [(ngModel)]="qualityPatrol" (ionChange)="segmentChanged($event)">
+      <ion-segment-button value="my">
+        我的
+      </ion-segment-button>
+      <ion-segment-button value="all">
+        所有
+      </ion-segment-button>
+    </ion-segment>
+    <ion-buttons right style="margin-right:6px">     
+      <button ion-button icon-only (click)="goModel()">
+        <ion-icon ios="ios-cube" md="md-cube"></ion-icon>
+      </button>
+      <button ion-button icon-only (click)="onSearch($event)">
+        <ion-icon ios="ios-funnel" md="md-funnel"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content padding [ngSwitch]="qualityPatrol">
+
+  <div *ngSwitchCase="'my'" class="content-inner">
+    <ion-toolbar class="sub-toolbar">
+      <ion-segment [(ngModel)]="tabs" (ionChange)="segmentChanged($event)">
+        <!-- <ion-segment-button value="need">
+            待提交
+          </ion-segment-button> -->
+        <ion-segment-button value="deal">
+          待整改
+        </ion-segment-button>
+        <ion-segment-button value="recheck">
+          待复检
+        </ion-segment-button>
+        <ion-segment-button value="close">
+          已关闭
+        </ion-segment-button>
+      </ion-segment>
+    </ion-toolbar>
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="下拉刷新" refreshingSpinner="circles" refreshingText="正在刷新...">
+      </ion-refresher-content>
+    </ion-refresher>
+    <div [ngSwitch]="tabs">
+      <div *ngSwitchCase="'need'">
+        <ion-list>
+          <ion-item-sliding *ngFor="let obj of needList" (click)="onShowDetail(obj)">
+            <ion-item>
+              <ion-thumbnail item-start>
+                <img [src]="obj.firstImagePath">
+              </ion-thumbnail>
+              <h2 style="margin-top:4px;">{{obj.name}}</h2>
+              <p>创建人: {{obj.creater}}</p>
+              <p>整改期限:{{obj.date | date:'yyyy-MM-dd'}}</p>
+            </ion-item>
+          </ion-item-sliding>
+        </ion-list>
+      </div>
+      <div *ngSwitchCase="'deal'">
+        <ion-list>
+          <ion-item-sliding *ngFor="let obj of dealList" (click)="onShowDetail(obj)">
+            <ion-item>
+              <ion-thumbnail item-start>
+                <img [src]="obj.firstImagePath">
+              </ion-thumbnail>
+              <h2 style="margin-top:4px;">{{obj.checkSite}}</h2>
+              <!-- <p>整改期限:{{obj.data | date:'yyyy-MM-dd'}}</p> -->
+              <p>创建人: {{obj.creatorUserName}}</p>
+              <p>创建时间:{{obj.creationTime | date:'yyyy-MM-dd'}}
+                <span class="status" *ngIf="canAbilityEngineer">状态: {{obj.state === '2' ? '待分发' : '已分发'}}</span>
+                <span class="status" *ngIf="canAbilityBuilding">状态: {{obj.state === '3' ? '待分发' : '已分发'}}</span>
+              </p>
+            </ion-item>
+          </ion-item-sliding>
+        </ion-list>
+      </div>
+      <div *ngSwitchCase="'recheck'">
+        <ion-list>
+          <ion-item-sliding *ngFor="let obj of checkList" (click)="onShowDetail(obj)">
+            <ion-item>
+              <ion-thumbnail item-start>
+                <img [src]="obj.firstImagePath">
+              </ion-thumbnail>
+              <h2 style="margin-top:4px;">{{obj.checkSite}}</h2>
+              <!-- <p>整改期限:{{obj.data | date:'yyyy-MM-dd'}}</p> -->
+              <p>创建人: {{obj.creatorUserName}}</p>
+              <p>创建时间:{{obj.creationTime | date:'yyyy-MM-dd'}}</p>
+            </ion-item>
+          </ion-item-sliding>
+        </ion-list>
+      </div>
+      <div *ngSwitchCase="'close'">
+        <ion-list>
+          <ion-item-sliding *ngFor="let obj of closeList" (click)="onShowDetail(obj)">
+            <ion-item>
+              <ion-thumbnail item-start>
+                <img [src]="obj.firstImagePath">
+              </ion-thumbnail>
+              <h2 style="margin-top:4px;">{{obj.checkSite}}</h2>
+              <!-- <p>整改期限:{{obj.data | date:'yyyy-MM-dd'}}</p> -->
+              <p>创建人: {{obj.creatorUserName}}</p>
+              <p>创建时间:{{obj.creationTime | date:'yyyy-MM-dd'}}</p>
+            </ion-item>
+          </ion-item-sliding>
+        </ion-list>
+      </div>
+    </div>
+    <ion-infinite-scroll (ionInfinite)="loadDate($event,false)" [enabled]='infiniteScrollEnabled'>
+      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </div>
+  <div *ngSwitchCase="'all'" class="content-inner">
+    <ion-toolbar class="sub-toolbar">
+      <ion-segment [(ngModel)]="tabs" (ionChange)="segmentChanged($event)">
+        <!-- <ion-segment-button value="need">
+            待提交
+          </ion-segment-button> -->
+        <ion-segment-button value="deal">
+          待整改
+        </ion-segment-button>
+        <ion-segment-button value="recheck">
+          待复检
+        </ion-segment-button>
+        <ion-segment-button value="close">
+          已关闭
+        </ion-segment-button>
+      </ion-segment>
+    </ion-toolbar>
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="下拉刷新" refreshingSpinner="circles" refreshingText="正在刷新...">
+      </ion-refresher-content>
+    </ion-refresher>
+    <div [ngSwitch]="tabs">
+
+      <div *ngSwitchCase="'deal'">
+        <ion-list>
+          <ion-item-sliding *ngFor="let obj of allDealList" (click)="onShowDetail(obj)">
+            <ion-item>
+              <ion-thumbnail item-start>
+                <img [src]="obj.firstImagePath">
+              </ion-thumbnail>
+              <h2 style="margin-top:4px;">{{obj.checkSite}}</h2>
+              <p>创建人: {{obj.creatorUserName}} 
+                <span class="status" *ngIf="canAbilityEngineer">状态: {{obj.state === '2' ? '待分发' : '已分发'}}</span>
+                <span class="status" *ngIf="canAbilityBuilding">状态: {{obj.state === '3' ? '待分发' : '已分发'}}</span>
+              </p>
+              <p>创建时间:{{obj.creationTime | date:'yyyy-MM-dd'}}</p>
+            </ion-item>
+          </ion-item-sliding>
+        </ion-list>
+      </div>
+      <div *ngSwitchCase="'recheck'">
+        <ion-list>
+          <ion-item-sliding *ngFor="let obj of allCheckList" (click)="onShowDetail(obj)">
+            <ion-item>
+              <ion-thumbnail item-start>
+                <img [src]="obj.firstImagePath">
+              </ion-thumbnail>
+              <h2 style="margin-top:4px;">{{obj.checkSite}}</h2>
+              <p>创建人: {{obj.creatorUserName}}</p>
+              <p>创建时间:{{obj.creationTime | date:'yyyy-MM-dd'}}</p>
+            </ion-item>
+          </ion-item-sliding>
+        </ion-list>
+      </div>
+      <div *ngSwitchCase="'close'">
+        <ion-list>
+          <ion-item-sliding *ngFor="let obj of allCloseList" (click)="onShowDetail(obj)">
+            <ion-item>
+              <ion-thumbnail item-start>
+                <img [src]="obj.firstImagePath">
+              </ion-thumbnail>
+              <h2 style="margin-top:4px;">{{obj.checkSite}}</h2>
+              <p>创建人: {{obj.creatorUserName}}</p>
+              <p>创建时间:{{obj.creationTime | date:'yyyy-MM-dd'}}</p>
+            </ion-item>
+          </ion-item-sliding>
+        </ion-list>
+      </div>
+    </div>
+    <ion-infinite-scroll (ionInfinite)="loadDate($event,false)" [enabled]='infiniteScrollEnabled'>
+      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </div>
+
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <button *ngIf="canAbilityViewByEngineer" color="danger" (click)="addQuality()" ion-button block>新增</button>
+  </ion-toolbar>
+</ion-footer>

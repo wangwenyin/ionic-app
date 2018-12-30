@@ -1,0 +1,67 @@
+<!--
+  Generated template for the FilePreviewPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-buttons start>
+      <button *ngIf="fileInfo&& ((fileInfo.pathList && fileInfo.pathList.length>1) || fileInfo.fileType === 'cad')" ion-button icon-only (click)="presentPopover($event)">
+        <ion-icon name="more"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>
+      <span>{{fileInfo?fileInfo.name:''}}</span>
+    </ion-title>
+    <ion-buttons end>
+      <button *ngIf="isGranted('Pages.Design.Teamwork.Task.Create')" ion-button icon-only  (click)="onAddTask()">
+        <ion-icon ios="ios-create" md="md-create"></ion-icon>
+      </button>
+      <button *ngIf="isGranted('Pages.Design.Teamwork.View.Create')" ion-button icon-only  (click)="onAddView()">
+        <ion-icon ios="ios-camera" md="md-camera"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<!--(touchstart)="touchStart($event)"  (touchmove)="touchMove($event)" (touchend)="touchEnd($event)"-->
+<ion-content class="page-file-preview" [ngStyle]="{'background-color': this.fileInfo.fileType==='cad'?'black':'#fff'}" style="overflow:auto;">
+  <!--(touchstart)="touchStartPng($event)"  (touchmove)="touchMovePng($event)" (touchend)="touchEndPng($event)"-->
+    <div class="preview-img"  *ngIf="_showModelOrPdf === false">
+      <!--<app-pdf-browe id="pdfbrowe" [pdfViererOption]='optionPdf' style="overflow-y: auto;"></app-pdf-browe>-->
+      <img #imgpdf [src]="this.imageUrl"  crossOrigin="anonymous" (swipe)="swipeEvent($event)">
+    </div>
+    <div *ngIf="_showModelOrPdf">
+      <!--(modelEvent)="onModelEvent($event)"-->
+      <app-model-browe  [modelBroweOption]='optionModel'></app-model-browe>
+    </div>
+</ion-content>
+<ion-footer *ngIf="_showModelOrPdf === false">
+  <ion-toolbar>
+    <ion-segment style="background-color: #1c2b36;color: transparent" color>
+      <ion-segment-button   value="stopDraw" (click)="stopDraw()">
+        <ion-icon style="padding-top: 8px;color: #FFFFFF" ios="md-eye" md="md-eye"></ion-icon>
+      </ion-segment-button>
+      <ion-segment-button  value="drawCloud" (click)="drawCloud()">
+        <img style="padding-top: 11px;" src="assets/pdf-tool/cloud.png">
+      </ion-segment-button>
+      <ion-segment-button  value="drawLine"  (click)="drawLine()">
+        <img  style="padding-top: 11px" src="assets/pdf-tool/line.png">
+      </ion-segment-button>
+      <ion-segment-button  value="drawRectangle" (click)="drawRectangle()">
+        <img   style="padding-top: 11px" src="assets/pdf-tool/rect.png">
+      </ion-segment-button>
+      <ion-segment-button  value="drawCircle" (click)="drawCircle()">
+        <img   style="padding-top: 11px" src="assets/pdf-tool/circle.png">
+      </ion-segment-button>
+      <ion-segment-button  value="drawText" (click)="drawText()">
+        <img   style="padding-top: 11px" src="assets/pdf-tool/text.png">
+      </ion-segment-button>
+      <ion-segment-button  value="onClear" (click)="onClear()">
+        <ion-icon style="padding-top: 8px;color: #FFFFFF" ios="md-close" md="md-close" ></ion-icon>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-footer>

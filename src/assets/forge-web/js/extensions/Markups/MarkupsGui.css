@@ -1,0 +1,19 @@
+/*2018-12-7 9：48 标记图标修改 liaozl*/
+.adsk-icon-markup:before {
+  content: "X";
+}
+
+.lmv-markup-gui-toolbar {
+  position: absolute;
+  top: 0;
+  margin: 5px 5px;
+  color: #000000;
+}
+
+.lmv-markup-gui-toolbar-content > * {
+  margin: 0 2px;
+}
+
+.lmv-markup-gui-style-options {
+  display: inline-block;
+}

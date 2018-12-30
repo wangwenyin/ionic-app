@@ -1,0 +1,164 @@
+<ion-header>
+  <ion-toolbar class="first-toolbar">
+    <ion-buttons left>
+      <button ion-button icon-only (click)="onBackPage()">
+        <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+      </button>
+      <!-- <button ion-button icon-only>
+        <ion-icon name="md-expand"></ion-icon>
+      </button> -->
+    </ion-buttons>
+    <ion-segment [(ngModel)]="securityManage " (ionChange)="firstSegmentChanged()">
+      <ion-segment-button value="my">
+        我的
+      </ion-segment-button>
+      <ion-segment-button value="all">
+        所有
+      </ion-segment-button>
+    </ion-segment>
+    <ion-buttons right style="margin-right:6px">
+      <button ion-button icon-only (click)="goModel()">
+        <ion-icon ios="ios-cube" md="md-cube"></ion-icon>
+      </button>
+      <button ion-button icon-only>
+        <ion-icon ios="ios-funnel" md="md-funnel"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-toolbar class="sub-toolbar">
+      <ion-segment [(ngModel)]="tabs" (ionChange)="segmentChanged()">
+        <ion-segment-button value="deal">
+          待整改
+        </ion-segment-button>
+        <ion-segment-button value="recheck">
+          待复检
+        </ion-segment-button>
+        <ion-segment-button value="close">
+          已关闭
+        </ion-segment-button>
+      </ion-segment>
+  </ion-toolbar>
+</ion-header>
+  
+<ion-content padding [ngSwitch]="securityManage ">
+  <div *ngSwitchCase="'my'" class="content-inner">
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="下拉刷新" refreshingSpinner="circles" refreshingText="正在刷新...">
+      </ion-refresher-content>
+    </ion-refresher>
+    <div [ngSwitch]="tabs">
+      <div *ngSwitchCase="'deal'">
+        <ion-list>
+          <ion-item-sliding *ngFor="let item of dealList" (click)="onShowDetail(item)">
+            <ion-item>
+              <ion-thumbnail item-start>
+                <img [src]="item.firstImagePath">
+              </ion-thumbnail>
+              <h2 style="margin-top:4px;">{{item.checkSite}}</h2>
+              <p>创建人: {{item.creatorUserName}}</p>
+              <p>创建时间:{{item.creationTime | date:'yyyy-MM-dd'}}</p>
+              <span *ngIf="item.state === '2';else otherSpan" style="float: right; margin-top: -5px; color: #fb6c6c; font-size: 12px">待指派</span>
+              <ng-template #otherSpan>
+                <span style="float: right; margin-top: -5px; color: green; font-size: 12px">已指派</span>
+              </ng-template>
+            </ion-item>
+          </ion-item-sliding>
+        </ion-list>
+      </div>
+      <div *ngSwitchCase="'recheck'">
+        <ion-list>
+          <ion-item-sliding *ngFor="let item of checkList" (click)="onShowDetail(item)">
+            <ion-item>
+              <ion-thumbnail item-start>
+                <img [src]="item.firstImagePath">
+              </ion-thumbnail>
+              <h2 style="margin-top:4px;">{{item.checkSite}}</h2>
+              <p>创建人: {{item.creatorUserName}}</p>
+              <p>创建时间:{{item.creationTime | date:'yyyy-MM-dd'}}</p>
+            </ion-item>
+          </ion-item-sliding>
+        </ion-list>
+      </div>
+      <div *ngSwitchCase="'close'">
+        <ion-list>
+          <ion-item-sliding *ngFor="let item of closeList" (click)="onShowDetail(item)">
+            <ion-item>
+              <ion-thumbnail item-start>
+                <img [src]="item.firstImagePath">
+              </ion-thumbnail>
+              <h2 style="margin-top:4px;">{{item.checkSite}}</h2>
+              <p>创建人: {{item.creatorUserName}}</p>
+              <p>创建时间:{{item.creationTime | date:'yyyy-MM-dd'}}</p>
+            </ion-item>
+          </ion-item-sliding>
+        </ion-list>
+      </div>
+    </div>
+    <ion-infinite-scroll (ionInfinite)="loadData($event,false)" [enabled]='infiniteScrollEnabled'>
+      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </div>
+  <div *ngSwitchCase="'all'" class="content-inner">
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="下拉刷新" refreshingSpinner="circles" refreshingText="正在刷新...">
+      </ion-refresher-content>
+    </ion-refresher>
+    <div [ngSwitch]="tabs">
+      <div *ngSwitchCase="'deal'">
+        <ion-list>
+          <ion-item-sliding *ngFor="let item of allDealList" (click)="onShowDetail(item)">
+            <ion-item>
+              <ion-thumbnail item-start>
+                <img [src]="item.firstImagePath">
+              </ion-thumbnail>
+              <h2 style="margin-top:4px;">{{item.checkSite}}</h2>
+              <p>创建人: {{item.creatorUserName}}</p>
+              <p>创建时间:{{item.creationTime | date:'yyyy-MM-dd'}}</p>
+              <span *ngIf="item.state === '2';else otherSpan" style="float: right; margin-top: -5px;  color: #fb6c6c; font-size: 12px">待指派</span>
+              <ng-template #otherSpan>
+                <span style="float: right; margin-top: -5px; color: green; font-size: 12px">已指派</span>
+              </ng-template>
+            </ion-item>
+          </ion-item-sliding>
+        </ion-list>
+      </div>
+      <div *ngSwitchCase="'recheck'">
+        <ion-list>
+          <ion-item-sliding *ngFor="let item of allCheckList" (click)="onShowDetail(item)">
+            <ion-item>
+              <ion-thumbnail item-start>
+                <img [src]="item.firstImagePath">
+              </ion-thumbnail>
+              <h2 style="margin-top:4px;">{{item.checkSite}}</h2>
+              <p>创建人: {{item.creatorUserName}}</p>
+              <p>创建时间:{{item.creationTime | date:'yyyy-MM-dd'}}</p>
+            </ion-item>
+          </ion-item-sliding>
+        </ion-list>
+      </div>
+      <div *ngSwitchCase="'close'">
+        <ion-list>
+          <ion-item-sliding *ngFor="let item of allCloseList" (click)="onShowDetail(item)">
+            <ion-item>
+              <ion-thumbnail item-start>
+                <img [src]="item.firstImagePath">
+              </ion-thumbnail>
+              <h2 style="margin-top:4px;">{{item.checkSite}}</h2>
+              <p>创建人: {{item.creatorUserName}}</p>
+              <p>创建时间:{{item.creationTime | date:'yyyy-MM-dd'}}</p>
+            </ion-item>
+          </ion-item-sliding>
+        </ion-list>
+      </div>
+    </div>
+    <ion-infinite-scroll (ionInfinite)="loadData($event,false)" [enabled]='infiniteScrollEnabled'>
+      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </div>
+</ion-content>
+  
+<ion-footer>
+  <ion-toolbar>
+    <button color="danger" (click)="onAdd()" ion-button block>新增</button>
+  </ion-toolbar>
+</ion-footer>

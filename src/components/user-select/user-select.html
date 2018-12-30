@@ -1,0 +1,35 @@
+<!-- Generated template for the UserSelectComponent component -->
+<div class="user-select">
+  <ion-list-header text-center>
+    <!--<ion-item>-->
+      <!--<ion-input type="text" [(ngModel)]="searchValue"></ion-input>-->
+      <!--<button (click)="getItems(searchValue)">-->
+        <!--<ion-icon ios="ios-search" md="md-search"></ion-icon>-->
+      <!--</button>-->
+    <!--</ion-item>-->
+    <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+  </ion-list-header>
+  <ion-scroll scrollY="true">
+    <!--420px-->
+    <div style="height: 380px">
+      <ion-list  text-wrap>
+        <ion-item *ngFor="let user of this.userItems">
+          <ion-label>{{getShowName(user)}}</ion-label>
+          <ion-checkbox color="dark" [(ngModel)]="user.checked" ></ion-checkbox>
+        </ion-item>
+      </ion-list>
+    </div>
+  </ion-scroll>
+  <ion-row>
+    <ion-col col-6>
+      <button  ion-button round  (click)="onClose(false)" class="ths-dark-blue">
+        关闭
+      </button>
+    </ion-col>
+    <ion-col col-6>
+      <button  ion-button round  (click)="onClose(true)" class="ths-dark-blue">
+        添加
+      </button>
+    </ion-col>
+  </ion-row>
+</div>

@@ -1,0 +1,179 @@
+forge-model {
+    @import'../assets/forge-web/css/main.css';
+    @import'../assets/forge-web/css/style.min.css';
+    .touch .adsk-toolbar {
+        width:32px !important;
+        right:32px !important;
+        left: unset !important;
+        transform: none !important;
+        z-index: 3000 !important;
+    }
+    .explode-submenu.ios {
+        margin-top:105px !important;
+        left: -170px !important;
+    }
+    .adsk-button>.toolbar-vertical-group {
+        bottom: unset !important;
+        width: 100px !important;
+        left:-105px !important;
+    }
+    .adsk-viewing-viewer .adsk-label-button label {
+        padding: unset !important;
+        font-size: 16px !important;
+    }
+    .adsk-viewing-viewer.dark-theme .docking-panel-container-solid-color-b {
+        margin-left:-110px !important;
+        bottom: 5px !important;
+    }
+    #measureTools {
+        // margin-bottom:-260px !important;
+        position:relative !important;
+        // left:-55px !important;
+    }
+    #measureTools .measure-toolbar-seperator {
+        display: none !important;
+    }
+    .adsk-viewing-viewer .measure-done {
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    #ViewerModelStructurePanel {
+        height: calc(100% - 25px) !important;
+        max-height: calc(100% - 25px) !important;
+        width: calc(100% - 90px) !important;
+        max-width: calc(100% - 90px) !important;
+    }
+    #ViewerPropertyPanel {
+        left: 0px !important;
+    }
+    #ViewerSettingsPanel0 {
+        left: unset !important;
+        min-width: 300px !important;
+    }
+    
+    .draggable-body {
+        width: 300px !important;
+    }
+    .draggable {
+        right: unset !important;
+    }
+    .icon {
+        font-family: "fontello";
+        font-style: normal;
+        font-weight: normal;
+      
+        display: inline-block;
+        text-decoration: inherit;
+        width: 1em;
+        margin-right: .2em;
+        text-align: center;
+        /* opacity: .8; */
+      
+        /* For safety - reset parent styles, that can break glyph codes*/
+        font-variant: normal;
+        text-transform: none;
+      
+        /* fix buttons height, for twitter bootstrap */
+        line-height: 1em;
+      
+        /* Animation center compensation - margins should be symmetric */
+        /* remove if not needed */
+        margin-left: .2em;
+      
+        /* you can be more comfortable with increased icons size */
+        /* font-size: 120%; */
+      
+        /* Font smoothing. That was taken from TWBS */
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      
+        /* Uncomment for 3D effect */
+        /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+      }
+      .m-chatViewName {
+        font-size: 13px;
+        font-weight: bold;
+        color: rgb(255, 255, 255);
+        display: block;
+        height: 25px;
+        line-height: 24px;
+        padding: 0 10px;
+        border-radius: 50%;
+        position: absolute;
+        top: 43%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    .tooltip-arrow {
+        position: absolute;
+        width: 0;
+        height: 0;
+        border-color: transparent;
+        border-style: solid;
+        bottom: -18px;
+        left: 20px;
+        margin-left: -28px;
+        border-width: 8px 8px 0;
+        border-top-color: #E71818;
+    }
+    .textname_clo_red {
+        background: #f0423c;
+    }
+    .red_arrow {
+        border-top-color: #f0423c;
+    }
+    .textname_clo_green {
+        background: #2cb150;
+    }
+    .green_arrow {
+        border-top-color: #2cb150;
+    }
+    .textname_clo_lightgreen {
+        background: #90EE90;
+    }
+    .lightgreen_arrow {
+        border-top-color: #90EE90;
+    }
+    .textname_clo_blue {
+        background: #0081f2;
+    }
+    .blue_arrow {
+        border-top-color: #0081f2;
+    }
+    // .textname_clo_blue {
+    //     background: #BEBEBE;
+    // }
+    // .blue_arrow {
+    //     border-top-color: #BEBEBE;
+    // }
+    .textname_clo_black {
+        background: #000000;
+    }
+    .black_arrow {
+        border-top-color: 	#000000;
+    }
+    .textname_clo_yellow {
+        background: #ffb727;
+    }
+    .yellow_arrow {
+        border-top-color: #ffb727;
+    }
+    .textname_clo_purple {
+        background:	#A020F0;
+    }
+    .purple_arrow {
+        border-top-color: #A020F0;
+    }
+    .textname_clo_orange {
+        background: #e3681e;
+    }
+    .orange_arrow {
+        border-top-color: #e3681e;
+    }
+    .textname_clo_gray {
+        background: #A9A9A9;
+    }
+    .gray_arrow {
+        border-top-color: #A9A9A9;
+    }
+}

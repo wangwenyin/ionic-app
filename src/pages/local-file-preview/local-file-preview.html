@@ -1,0 +1,33 @@
+<!--
+  Generated template for the LocalFilePreviewPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <!--<ion-buttons start>-->
+      <!--<button ion-button icon-only color="royal" (click)="onClose()">-->
+        <!--<ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>-->
+      <!--</button>-->
+    <!--</ion-buttons>-->
+    <ion-title>
+      <span>{{name}}</span>
+    </ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content class="page-local-file-preview" (touchstart)="touchStart($event)"  (touchmove)="touchMove($event)" (touchend)="touchEnd($event)">
+  <div id="pdf-div"  *ngIf="_showModelOrPdf === false" >
+    <!--(pdfEvent)="onPdfEvent($event)"-->
+    <app-pdf-browe [pdfViererOption]='optionPdf' style="overflow-y: auto;"></app-pdf-browe>
+  </div>
+  <div *ngIf="_showModelOrPdf === true">
+    <!--(modelEvent)="onModelEvent($event)"-->
+    <app-model-browe  [modelBroweOption]='optionModel'></app-model-browe>
+  </div>
+</ion-content>
+

@@ -1,0 +1,46 @@
+<!--
+  Generated template for the MyProjectsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>my-projects</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content class="project-page">
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="下拉刷新"
+      refreshingSpinner="circles"
+      refreshingText="正在刷新...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3 *ngFor="let tenant of tenantItems" (click)="onSelectProject(tenant)">
+        <ion-card>
+          <!-- <img [src]="tenant.thumbnailPath">
+          <div class="card-title"> {{tenant.name}}</div>
+          <div class="card-subtitle"></div> -->
+          <ion-card-header color="light" style="background-color: #ee6a68;color: #FFFFFF" class="item-divider-ios"
+                           text-center>  {{tenant.name}}
+          </ion-card-header>
+          <!-- <img [src]="tenant.thumbnailPath"> -->
+          <div style="padding-bottom: 75%; height: 0; overflow: hidden;
+            background-position: center center; background-size: cover;"
+               [ngStyle]="{'background-image': 'url(' + tenant.thumbnailPath + ')'}">
+            <!-- <img alt="用户未上传图片" style="width: 100%" [src]="item.imageUrl" onerror="this.src='./assets/project/default.png'"/> -->
+          </div>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

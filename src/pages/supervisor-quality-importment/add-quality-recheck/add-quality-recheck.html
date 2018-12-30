@@ -1,0 +1,72 @@
+<!--
+  Generated template for the AddCheckPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title><span>新建复检</span></ion-title>
+    <ion-buttons right>
+      <button ion-button icon-only (click)="onSaveRecord()">
+        <ion-icon ios="ios-cloud-done" md="md-cloud-done"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list>
+    <ion-item>
+      <ion-label>复检问题描述</ion-label>
+      <ion-textarea rows="5" readonly [(ngModel)]="question.detail"></ion-textarea>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>计划完成时间</ion-label>
+      <ion-label text-right>{{question.overTime | date:'yyyy-MM-dd'}}</ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>月度节点</ion-label>
+      <ion-textarea rows="5" [(ngModel)]="record.monthlyNode" (keyup)="onKey($event,50)"></ion-textarea>
+    </ion-item>
+
+    <ion-item>
+      <ion-label><span class="tip">*</span>进度情况</ion-label>
+      <ion-textarea rows="5" [(ngModel)]="record.progressDetail" (keyup)="onKey($event,50)"></ion-textarea>
+    </ion-item>
+
+    <ion-item>
+      <ion-label><span class="tip">*</span>复检时间</ion-label>
+      <ion-datetime cancelText="取消" doneText="确定" displayFormat="YYYY-MM-DD" [(ngModel)]="record.creationTime"></ion-datetime>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>是否完成</ion-label>
+      <ion-toggle [(ngModel)]="isFinish"></ion-toggle>
+    </ion-item>
+
+    <ion-item-group>
+      <ion-item-divider color="light">
+        <ion-icon item-start ios="ios-images" md="md-images"></ion-icon>
+        复检图片
+        <ion-icon item-end padding-right ios="ios-image" md="md-image" (click)="onLocalImage()"></ion-icon>
+        <ion-icon item-end padding-right ios="ios-camera" md="md-camera" (click)="onCameraImage()"></ion-icon>
+      </ion-item-divider>
+      <ion-grid>
+        <ion-row>
+          <ion-col col-3 *ngFor="let view of viewItems;let i=index">
+            <img *ngIf="!view.viewId" [src]="view.thumbPath" (click)="onPrvIamge(view.path)">
+          </ion-col>
+          <ion-col col-3 *ngFor="let image of newIamgeFile;let i=index">
+            <img [src]="image.data" imageViewer="OTHER_IMAGE_URL" (click)="onPrvIamge(image.data)">
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item-group>
+  </ion-list>
+</ion-content>

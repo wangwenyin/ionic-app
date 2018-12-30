@@ -1,0 +1,128 @@
+<!--
+  Generated template for the OtherQualityEngineerPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title><span>其他质量问题</span></ion-title>
+    <ion-buttons right style="margin-right:6px">
+      <button ion-button icon-only>
+        <ion-icon name="md-expand"></ion-icon>
+      </button>
+      <!-- <button ion-button icon-only (click)="goModel()">
+        <ion-icon ios="ios-cube" md="md-cube"></ion-icon>
+      </button> -->
+      <button ion-button icon-only (click)="onSearch($event)">
+        <ion-icon ios="ios-funnel" md="md-funnel"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+
+  <ion-toolbar class="sub-toolbar">
+    <!-- <ion-buttons left style="margin-left:6px">
+        <button ion-button>
+          <span padding-left>质量</span>
+        </button>
+      </ion-buttons> -->
+
+    <!-- <ion-navbar> -->
+    <ion-segment [(ngModel)]="tabs" (ionChange)="segmentChanged($event)">
+      <ion-segment-button value="deal">
+        待整改
+      </ion-segment-button>
+      <ion-segment-button value="recheck">
+        待复检
+      </ion-segment-button>
+      <ion-segment-button value="close">
+        已关闭
+      </ion-segment-button>
+      <!-- <ion-segment-button value="all">
+          全部
+        </ion-segment-button> -->
+    </ion-segment>
+    <!-- </ion-navbar> -->
+
+    <!-- <ion-title text-center>
+            </ion-title> -->
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="下拉刷新" refreshingSpinner="circles" refreshingText="正在刷新...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <div [ngSwitch]="tabs">
+    <div *ngSwitchCase="'need'">
+      <ion-list>
+        <ion-item-sliding *ngFor="let obj of this.needList" (click)="onShowDetail(obj)">
+          <ion-item>
+            <ion-thumbnail item-start>
+              <img src="assets/images/one.jpg">
+            </ion-thumbnail>
+            <h2 style="margin-top:4px;">{{obj.name}}</h2>
+            <p>整改期限:{{obj.data | date:'yyyy-MM-dd'}}</p>
+            <p>创建人: {{obj.creater}}</p>
+          </ion-item>
+        </ion-item-sliding>
+      </ion-list>
+    </div>
+    <div *ngSwitchCase="'deal'">
+      <ion-list>
+        <ion-item-sliding *ngFor="let obj of this.dealList" (click)="onShowDetail(obj)">
+          <ion-item>
+            <ion-thumbnail item-start>
+              <img [src]="obj.firstImagePath">
+            </ion-thumbnail>
+              <h2 style="margin-top:4px;">{{obj.checkSite}}</h2>
+              <!-- <p>整改期限:{{obj.data | date:'yyyy-MM-dd'}}</p> -->
+            <p>创建人: {{obj.creatorUserName}}</p>
+            <p>创建时间:{{obj.creationTime | date:'yyyy-MM-dd'}}</p>
+          </ion-item>
+        </ion-item-sliding>
+      </ion-list>
+    </div>
+    <div *ngSwitchCase="'recheck'">
+      <ion-list>
+        <ion-item-sliding *ngFor="let obj of this.checkList" (click)="onShowDetail(obj)">
+          <ion-item>
+            <ion-thumbnail item-start>
+              <img [src]="obj.firstImagePath">
+            </ion-thumbnail>
+            <h2 style="margin-top:4px;">{{obj.checkSite}}</h2>
+            <!-- <p>整改期限:{{obj.data | date:'yyyy-MM-dd'}}</p> -->
+            <p>创建人: {{obj.creatorUserName}}</p>
+            <p>创建时间:{{obj.creationTime | date:'yyyy-MM-dd'}}</p>
+          </ion-item>
+        </ion-item-sliding>
+      </ion-list>
+    </div>
+
+    <div *ngSwitchCase="'close'">
+      <ion-list>
+        <ion-item-sliding *ngFor="let obj of this.closeList" (click)="onShowDetail(obj)">
+          <ion-item>
+            <ion-thumbnail item-start>
+              <img [src]="obj.firstImagePath">
+            </ion-thumbnail>
+            <h2 style="margin-top:4px;">{{obj.checkSite}}</h2>
+            <!-- <p>整改期限:{{obj.data | date:'yyyy-MM-dd'}}</p> -->
+            <p>创建人: {{obj.creatorUserName}}</p>
+            <p>创建时间:{{obj.creationTime | date:'yyyy-MM-dd'}}</p>
+          </ion-item>
+        </ion-item-sliding>
+      </ion-list>
+    </div>
+
+  </div>
+  <ion-infinite-scroll (ionInfinite)="loadDate($event,false)" [enabled]='infiniteScrollEnabled'>
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

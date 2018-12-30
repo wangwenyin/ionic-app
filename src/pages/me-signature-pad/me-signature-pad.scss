@@ -1,0 +1,13 @@
+page-me-signature-pad {
+  .signature-content{
+    position: absolute;
+    width: 360px;
+    height: 300px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .signature-pad {
+    border: 2px solid red;
+  }
+}

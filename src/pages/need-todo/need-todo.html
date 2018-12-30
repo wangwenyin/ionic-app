@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-navbar>
+    <ion-buttons left>
+      <button ion-button icon-only (click)="goBack()">
+        <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-segment [(ngModel)]="todos">
+      <ion-segment-button value="needDo">
+        待办
+      </ion-segment-button>
+      <ion-segment-button value="done">
+        已办
+      </ion-segment-button>
+    </ion-segment>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding [ngSwitch]="todos">
+  <div *ngSwitchCase="'needDo'">
+    <ion-list>
+      <ion-item-sliding *ngFor="let item of todoList" (click)="onShowDetail(obj)">
+        <ion-item>
+          <ion-thumbnail item-start>
+            <img src="assets/images/map.png">
+          </ion-thumbnail>
+          <h2>{{item.name}}</h2>
+          <p>检查日期:{{item.date | date:'yyyy-MM-dd'}}</p>
+        </ion-item>
+      </ion-item-sliding>
+    </ion-list>
+  </div>
+  <div *ngSwitchCase="'done'">
+    <ion-list>
+      <ion-item-sliding *ngFor="let item of doneList" (click)="onShowDetail(obj)">
+        <ion-item>
+          <ion-thumbnail item-start>
+            <img src="assets/images/map.png">
+          </ion-thumbnail>
+          <h2>{{item.name}}</h2>
+          <p>检查日期:{{item.date | date:'yyyy-MM-dd'}}</p>
+        </ion-item>
+      </ion-item-sliding>
+    </ion-list>
+  </div>
+</ion-content>

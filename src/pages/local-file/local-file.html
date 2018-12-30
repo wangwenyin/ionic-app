@@ -1,0 +1,62 @@
+<!--
+  Generated template for the LocalFilePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>
+      <span>离线文件</span>
+    </ion-title>
+  </ion-navbar>
+  <ion-toolbar class="sub-toolbar">
+      <ion-buttons left style="margin-left:6px">
+        <button ion-button (click)="onOpenParentDir()">
+          <ion-icon  *ngIf="this._basePaths.length>2" ios="ios-arrow-back" md="md-arrow-back" ></ion-icon>
+          <span style="padding-left:1em">{{getNowDirName()}}</span>
+        </button>
+      </ion-buttons>
+      <ion-title text-center>
+      </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="page-local-file">
+  <ion-list text-wrap>
+    <!-- <ion-list-header>
+      <ion-icon *ngIf="this._basePaths.length>2" ios="ios-arrow-back" md="md-arrow-back" item-start (click)="onOpenParentDir()"></ion-icon>
+      <h3 (click)="onOpenParentDir()">{{getNowDirName()}}</h3>
+    </ion-list-header> -->
+    <ion-item-sliding *ngFor="let item of _dirItems;let i = index">
+      <ion-item   (click)="openDir(item)">
+        <ion-thumbnail item-start>
+          <img src="assets/file/folder.png">
+        </ion-thumbnail>
+        <h3>{{item.name}}</h3>
+        <!--<ion-note item-end>{{getFileSize(data.size)}}</ion-note>-->
+      </ion-item>
+      <ion-item-options side="right">
+        <button ion-button color="danger" (click)="deleteFile(item,i)">
+          <ion-icon ios="ios-trash" md="md-trash"></ion-icon>
+          删除
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+    <ion-item-sliding *ngFor="let item of _fileItems;let i = index">
+      <ion-item  (click)="openFile(item)">
+        <ion-thumbnail item-start>
+          <img [src]="getIcon(item.fileType)">
+        </ion-thumbnail>
+        <h3>{{item.name}}</h3>
+      </ion-item>
+      <ion-item-options side="right">
+        <button ion-button color="danger"  (click)="deleteFile(item,i)">
+          <ion-icon  ios="ios-trash" md="md-trash"></ion-icon>
+          删除
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+</ion-content>

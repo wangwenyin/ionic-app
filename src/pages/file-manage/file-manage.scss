@@ -1,0 +1,32 @@
+page-file-manage {
+  .list-ios .item-block .item-inner{
+    border-bottom: none;
+  }
+  .list-ios .item-block{
+    border-bottom: 0.55px solid #c8c7cc
+  }
+  .item-ios ion-thumbnail[item-start] {
+    margin: 2px 16px 2px 0;
+  }
+  ion-note {
+    font-size: 12px;
+    align-self: flex-start;
+    margin-top: 14px;
+  }
+  .sub-toolbar{
+    padding-top: 0px;
+    padding-bottom: 0px;
+  }
+  .sub-toolbar ion-title {
+    background-color: #e6e6eb;
+  }
+  .sub-toolbar ion-title span{
+    color: #000000;
+  }
+  .sub-toolbar ion-icon{
+    color:  #000000;
+  }
+  .sub-toolbar button{
+    color:  #000000;
+  }
+}

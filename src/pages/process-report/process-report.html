@@ -1,0 +1,214 @@
+<!--
+  Generated template for the DesignTaskDetailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <!-- <ion-buttons start>
+            <button ion-button icon-only color="royal" (click)="goBack()">
+              <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+            </button>
+          </ion-buttons> -->
+    <ion-title>
+      <span>{{taskInfo?taskInfo.name:''}}</span>
+    </ion-title>
+    <ion-buttons end>
+      <button *ngIf="taskInfo.finishRate !== 100" ion-button icon-only (click)="onSaveRecord()">
+        <ion-icon ios="ios-cloud-done" md="md-cloud-done"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+<ion-content>
+  <ion-list *ngIf="taskInfo.finishRate !== 100">
+    <ion-item>
+      <ion-label>任务名称</ion-label>
+      <!-- <ion-input type="text" [(ngModel)]="taskInfo.title" (keyup)="onKey($event,50)"></ion-input> -->
+      <ion-label text-right>
+        {{taskInfo.name}}
+      </ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>计划开始时间</ion-label>
+      <!-- <ion-input type="text" [(ngModel)]="taskInfo.title" (keyup)="onKey($event,50)"></ion-input> -->
+      <ion-label text-right>
+        {{taskInfo.planStartDate | date:'yyyy-MM-dd'}}
+      </ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>计划结束时间</ion-label>
+      <!-- <ion-input type="text" [(ngModel)]="taskInfo.title" (keyup)="onKey($event,50)"></ion-input> -->
+      <ion-label text-right>
+        {{taskInfo.planFinishDate | date:'yyyy-MM-dd'}}
+      </ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>责任部门</ion-label>
+      <ion-label text-right>
+        {{taskInfo.dutyDepartment}}
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>责任人</ion-label>
+      <ion-label text-right>
+        {{taskInfo.dutyUser}}
+      </ion-label>
+
+    </ion-item>
+    <ion-item>
+      <ion-label>完成率</ion-label>
+      <ion-input type="number" max="100" min="0" [(ngModel)]="taskInfo.finishRate" (ngModelChange)="change($event)"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label>实际开始时间</ion-label>
+        <ion-datetime [disabled]="taskInfo.finishRate > 0" cancelText="取消" doneText="确定" [max]="nowDate" displayFormat="YYYY-MM-DD" [(ngModel)]="taskInfo.actualStartDate"></ion-datetime>
+      </ion-item>
+    <ion-item>
+      <ion-label>实际完成时间</ion-label>
+      <ion-datetime cancelText="取消" doneText="确定" [max]="nowDate" displayFormat="YYYY-MM-DD" [(ngModel)]="taskInfo.actualFinishDate"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label><span style="color:red">*</span>任务进展情况</ion-label>
+      <ion-textarea rows="5" maxlength="256" placeholder="请输入任务进展情况" [(ngModel)]="desc" (keyup)="onKey($event,200)"></ion-textarea>
+    </ion-item>
+   
+    <ion-item-group>
+      <ion-item-divider color="light">
+        <ion-icon item-start ios="ios-images" md="md-images"></ion-icon>
+        本地图片
+        <ion-icon item-end padding-right ios="ios-image" md="md-image" (click)="onLocalImage()"></ion-icon>
+        <ion-icon item-end padding-right ios="ios-camera" md="md-camera" (click)="onCameraImage()"></ion-icon>
+      </ion-item-divider>
+      <ion-grid>
+        <ion-row>
+          <ion-col col-3 *ngFor="let view of viewItems;let i=index">
+            <img *ngIf="!view.viewId" [src]="view.thumbPath" (click)="onPrvIamge(view.path)">
+          </ion-col>
+          <ion-col col-3 *ngFor="let image of newIamgeFile;let i=index">
+            <img [src]="image.data" imageViewer="OTHER_IMAGE_URL" (click)="onPrvIamge(image.data)">
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item-group>
+  </ion-list>
+
+  <div *ngFor="let obj of processRecords;let i=index">
+    <ion-list>
+      <ion-list-header>
+        第{{processRecords.length - i}}次填报
+      </ion-list-header>
+      <ion-item>
+        <ion-label>完成率</ion-label>
+        <ion-label text-right>
+          {{obj.finishRate}} %
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>填报时间</ion-label>
+        <ion-label text-right>
+          {{obj.creationTime | date:'yyyy-MM-dd'}}
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>任务进展情况</ion-label>
+        <ion-label text-right>
+          {{obj.processDesc}}
+        </ion-label>
+      </ion-item>
+      <ion-item-group>
+        <ion-item-divider color="light">
+          <ion-icon item-start ios="ios-images" md="md-images"></ion-icon>
+          填报图片
+          <!-- <ion-icon item-end padding-right ios="ios-image" md="md-image" (click)="onLocalImage()"></ion-icon>
+          <ion-icon item-end padding-right ios="ios-camera" md="md-camera" (click)="onCameraImage()"></ion-icon> -->
+        </ion-item-divider>
+        <ion-grid>
+          <ion-row>
+            <ion-col col-3 *ngFor="let view of obj.imagePathList;let j=index">
+              <img *ngIf="view" [src]="view" (click)="onPrvIamge(view)">
+            </ion-col>
+            <!-- <ion-col col-3 *ngFor="let image of newIamgeFile;let j=index">
+              <img [src]="image.data" imageViewer="OTHER_IMAGE_URL" (click)="onPrvIamge(image.data)">
+            </ion-col> -->
+          </ion-row>
+        </ion-grid>
+      </ion-item-group>
+    </ion-list>
+  </div>
+  
+
+  <!-- <ion-list>
+    <ion-list-header>
+      第1次填报
+    </ion-list-header>
+    <ion-item>
+      <ion-label>完成率</ion-label>
+      <ion-label text-right>
+        10%
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>填报时间</ion-label>
+      <ion-label text-right>
+        2018-11-26
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label><span style="color:red">*</span>任务进展情况</ion-label>
+      <ion-label text-right>
+        开始进展
+      </ion-label>
+    </ion-item>
+    <ion-item-group>
+      <ion-item-divider color="light">
+        <ion-icon item-start ios="ios-images" md="md-images"></ion-icon>
+        填报图片
+       </ion-item-divider>
+      <ion-grid>
+        <ion-row>
+          <ion-col col-3 *ngFor="let view of viewItems;let i=index">
+            <img *ngIf="!view.viewId" [src]="view.thumbPath" (click)="onPrvIamge(view.path)">
+          </ion-col>
+          <ion-col col-3 *ngFor="let image of newIamgeFile;let i=index">
+            <img [src]="image.data" imageViewer="OTHER_IMAGE_URL" (click)="onPrvIamge(image.data)">
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item-group>
+  </ion-list> -->
+
+</ion-content>
+
+<!--<ion-footer *ngIf="userId === taskInfo.creatorUserId || userId === taskInfo.dutyer">-->
+<!--<ion-toolbar>-->
+<!--<ion-segment style="background-color: #1c2b36;color: transparent">-->
+<!--<ion-segment-button value="camera" (click)="onEditSave()"  *ngIf="userId === taskInfo.creatorUserId">-->
+<!--<ion-icon style="padding-top: 8px;color: #FFFFFF"  ios="ios-create" md="md-create">-->
+<!--编辑-->
+<!--</ion-icon>-->
+<!--</ion-segment-button>-->
+<!--<ion-segment-button value="process" (click)="onProcess()" *ngIf=" userId === taskInfo.dutyer && taskInfo.state ===2">-->
+<!--<ion-icon style="padding-top: 8px;color: #FFFFFF"  ios="ios-checkbox-outline" md="md-checkbox-outline">-->
+<!--处理-->
+<!--</ion-icon>-->
+<!--</ion-segment-button>-->
+<!--<ion-segment-button value="close" (click)="onClose()" *ngIf="userId === taskInfo.creatorUserId && taskInfo.state ===1">-->
+<!--<ion-icon style="padding-top: 8px;color: #FFFFFF" ios="ios-checkmark-circle" md="md-checkmark-circle">-->
+<!--关闭-->
+<!--</ion-icon>-->
+<!--</ion-segment-button>-->
+<!--<ion-segment-button value="delete" (click)="onDelete()" *ngIf="userId === taskInfo.creatorUserId">-->
+<!--<ion-icon style="padding-top: 8px;color: #FFFFFF"  ios="ios-trash" md="md-trash">-->
+<!--删除-->
+<!--</ion-icon>-->
+<!--</ion-segment-button>-->
+<!--</ion-segment>-->
+<!--</ion-toolbar>-->
+<!--</ion-footer>-->

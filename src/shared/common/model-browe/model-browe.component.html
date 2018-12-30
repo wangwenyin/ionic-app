@@ -1,0 +1,352 @@
+<div class="modelBrowe">
+<!--<div style="position: relative;top: 20px;left: 100px;z-index: 1000000">-->
+    <!--&lt;!&ndash;<input id="inputfile" type="file"  />&ndash;&gt;-->
+    <!--<button (click)="popOut()">PopOut</button>-->
+<!--</div>-->
+    <div id="content">
+        <div class="annotation-title">
+            <div class="annotation-title-input">
+                <div>
+                    <input type="text" [(ngModel)]="titleValue" />
+                </div>
+            </div>
+            <div class="add-tool">
+                <div class="tool-add-annotation" (click)="onAddAnnotation(titleValue)"></div>
+            </div>
+            <div class="cancel-tool">
+                <div class="tool-cancel-annotation" (click)="onCancelAnnotation()"></div>
+            </div>
+        </div>
+        <div id="viewerContainer"></div>
+		<i class="anticon anticon-close" id="closetree" style="float:right;font-size: 18px;display:none" (click)="onShowTree()"></i>
+        <!-- Toolbar HTML-->
+        <div id="toolBar" style="opacity:0.65">
+            <div class="toolbar-tools">
+                <div id="home-button" title="重置视点" data-operatorclass="toolbar-home" class="hoops-tool">
+                    <div class="tool-icon"></div>
+                </div>
+                <div id="click-button" title="选择模式" data-operatorclass="toolbar-select" data-submenu="click-submenu" class="hoops-tool toolbar-radio active-tool">
+                    <div class="smarrow"></div>
+                    <div class="tool-icon"></div>
+                </div>
+                <div id="camera-button" title="漫游" data-operatorclass="toolbar-orbit" data-submenu="camera-submenu" class="hoops-tool toolbar-menu">
+                    <div class="tool-icon"></div>
+                </div>
+                <div id="redline-button" (click)="showAnnotation()" title="注释" data-operatorclass="toolbar-redline-note" data-submenu="redline-submenu" class="hoops-tool toolbar-radio">
+                    <div class="smarrow"></div>
+                    <div class="tool-icon"></div>
+                </div>
+                <div id="cuttingplane-button" (click)="cuttingStatus()" title="剖切" data-operatorclass="toolbar-cuttingplane" data-submenu="cuttingplane-submenu" class="hoops-tool toolbar-menu-toggle">
+                    <div class="tool-icon"></div>
+                </div>
+                <div id="view-button" title="视点" data-operatorclass="toolbar-camera" data-submenu="view-submenu" class="hoops-tool toolbar-menu">
+                    <div class="tool-icon"></div>
+                </div>
+                <!--<div id="snapshot-button" (click)="getSnapShotStream()" title="截图" data-operatorclass="toolbar-snapshot" class="hoops-tool">-->
+                    <!--<div class="tool-icon"></div>-->
+                <!--</div>-->
+                <!--<div id="settings-button" title="设置" data-operatorclass="toolbar-settings" class="hoops-tool">-->
+                    <!--<div class="tool-icon"></div>-->
+                <!--</div>-->
+                <div id="treeshow-button" title="构件树" [ngStyle]="{'opacity':treeShow == true ? '1':'0.6'}" data-operatorclass="toolbar-showtree" class="hoops-tool" (click)="onShowTree()">
+                    <div class="tool-icon"></div>
+                </div>
+                <div id="propertyshow-button" title="属性" [ngStyle]="{'opacity':propertyShow == true ? '1':'0.6'}" data-operatorclass="toolbar-propertyshow" class="hoops-tool" (click)="onShowProperty()">
+                    <div class="tool-icon"></div>
+                </div>
+            </div>
+            <div id="submenus">
+                <div id="redline-submenu" data-button="redline-button" class="toolbar-submenu submenus">
+                    <table>
+                        <tr>
+                            <td><div id="redline-note" (click)="deleteMarkupView()" title="删除注释" data-operatorclass="toolbar-delete-ant" class="submenu-icon"></div></td>
+                        </tr>
+                        <tr>
+                            <td><div id="redline-circle-button" title="云线" data-operatorclass="toolbar-redline-circle" class="submenu-icon"></div></td>
+                            <td><div id="redline-rectangle-button" title="矩形框" data-operatorclass="toolbar-redline-rectangle" class="submenu-icon"></div></td>
+                        </tr>
+                        <tr>
+                            <td><div id="redline-note" title="文字" data-operatorclass="toolbar-redline-note" class="submenu-icon"></div></td>
+                            <td><div id="redline-freehand" title="画线" data-operatorclass="toolbar-redline-freehand" class="submenu-icon"></div></td>
+                        </tr>
+                    </table>
+                </div>
+                <div id="camera-submenu" data-button="camera-button" class="toolbar-submenu submenus">
+                    <table>
+                        <tr>
+                            <td><div id="operator-camera-walk" (click)="setWalk()" title="漫游" data-operatorclass="toolbar-walk" class="submenu-icon"></div></td>
+                        </tr>
+                        <tr>
+                            <td><div id="operator-camera-orbit" (click)="unsetWalk()" title="取消漫游" data-operatorclass="toolbar-orbit" class="submenu-icon"></div></td>
+                        </tr>
+                    </table>
+                </div>
+                <div id="view-submenu" class="toolbar-submenu submenus">
+                    <table>
+                        <tr>
+                            <td><div id="view-face" title="构件正面图" data-operatorclass="toolbar-face" class="submenu-icon disabled"></div></td>
+                        </tr>
+                        <tr>
+                            <td><div id="view-iso" title="模型标准图" data-operatorclass="toolbar-iso" class="submenu-icon"></div></td>
+                            <td><div id="view-ortho" title="直角投射图" data-operatorclass="toolbar-ortho" class="submenu-icon"></div></td>
+                            <td><div id="view-persp" title="远景投射图" data-operatorclass="toolbar-persp" class="submenu-icon"></div></td>
+                        </tr>
+                        <tr>
+                            <td><div id="view-left" title="左视角" data-operatorclass="toolbar-left" class="submenu-icon"></div></td>
+                            <td><div id="view-right" title="右视角" data-operatorclass="toolbar-right" class="submenu-icon"></div></td>
+                            <td><div id="view-bottom" title="底部视角" data-operatorclass="toolbar-bottom" class="submenu-icon"></div></td>
+                        </tr>
+                        <tr>
+                            <td><div id="view-front" title="正面视角" data-operatorclass="toolbar-front" class="submenu-icon"></div></td>
+                            <td><div id="view-back" title="背面视角" data-operatorclass="toolbar-back" class="submenu-icon"></div></td>
+                            <td><div id="view-top" title="顶部视角" data-operatorclass="toolbar-top" class="submenu-icon"></div></td>
+                        </tr>
+                    </table>
+                </div>
+                <div id="click-submenu" data-button="click-button" class="toolbar-submenu submenus">
+                    <table>
+                        <tr>
+                            <td><div id="area-select" title="选择区域" data-operatorclass="toolbar-area-select" class="submenu-icon"></div></td>
+                        </tr>
+                        <tr>
+                            <td><div id="select-parts" title="选择构件" data-operatorclass="toolbar-select" class="submenu-icon"></div></td>
+                        </tr>
+                    </table>
+                </div>
+                <div id="cuttingplane-submenu" class="toolbar-submenu cutting-plane submenus no-modal">
+                    <table>
+                        <tr>
+                            <td>
+                                <div id="cuttingplane-face" title="构件剖面图" data-plane="face" data-operatorclass="toolbar-cuttingplane-face" class="toolbar-cp-plane submenu-icon disabled"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div id="cuttingplane-x" title="沿X方向面剖" data-plane="x" data-operatorclass="toolbar-cuttingplane-x" class="toolbar-cp-plane submenu-icon"></div>
+                            </td>
+                            <td>
+                                <div id="cuttingplane-section" title="隐藏剖面" data-plane="section" data-operatorclass="toolbar-cuttingplane-section" class="toolbar-cp-plane submenu-icon disabled"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div id="cuttingplane-y" title="沿Y方向面剖" data-plane="y" data-operatorclass="toolbar-cuttingplane-y" class="toolbar-cp-plane submenu-icon"></div>
+                            </td>
+                            <td>
+                                <div id="cuttingplane-toggle" title="隐藏剖面" data-plane="toggle" data-operatorclass="toolbar-cuttingplane-toggle" class="toolbar-cp-plane submenu-icon disabled"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div id="cuttingplane-z" title="沿Z方向面剖" data-plane="z" data-operatorclass="toolbar-cuttingplane-z" class="toolbar-cp-plane submenu-icon"></div>
+                            </td>
+                            <td>
+                                <div id="cuttingplane-reset" title="重置" data-plane="reset" data-operatorclass="toolbar-cuttingplane-reset" class="toolbar-cp-plane submenu-icon disabled"></div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- Viewer Settings Window -->
+        <div id="viewer-settings-dialog" class="hoops-ui-window">
+            <div class="hoops-ui-window-header">
+                视图设置
+            </div>
+            <div class="hoops-ui-window-body">
+
+                <!--general-->
+                <div class="settings-group-header">基本参数</div>
+                <div class="settings-group settings-group-general">
+                    <div class="settings-block">
+                        <label>视图模式:</label>
+                        <select id="settings-projection-mode" class="right-align">
+                            <option value="0">直视</option>
+                            <option value="1">远视</option>
+                        </select>
+                        <span class="clear-both"></span>
+                    </div>
+                    <div class="settings-block">
+                        <span class="framerate-text">帧速率 (fps):</span>
+                        <input type="number" min="0" id="settings-framerate" class="right-align" />
+                        <span class="clear-both"></span>
+                    </div>
+                    <div class="settings-block">
+                        <span>隐藏线透明度 (0-1): </span>
+                        <input id="settings-hidden-line-opacity" class="right-align" type="number" min="0" max="1" step=".1" />
+                        <span class="clear-both"></span>
+                    </div>
+                    <div class="settings-block">
+                        <label for="settings-show-backfaces">显示背面:</label>
+                        <input type="checkbox" id="settings-show-backfaces" class="right-align" />
+                        <span class="clear-both"></span>
+                    </div>
+                    <div class="settings-block">
+                        <label for="settings-show-capping-geometry">显示几何覆盖:</label>
+                        <input type="checkbox" id="settings-show-capping-geometry" class="right-align" />
+                        <span class="clear-both"></span>
+                    </div>
+                    <div class="settings-block">
+                        <span>面 / 线: </span>
+                        <input type="checkbox" id="settings-enable-face-line-selection" class="right-align" />
+                        <span class="clear-both"></span>
+                    </div>
+                    <div class="settings-block">
+                        <span>相机中心旋转:</span>
+                        <input type="checkbox" id="settings-orbit-mode" class="right-align" />
+                        <span class="clear-both"></span>
+                    </div>
+                </div>
+
+                <!-- effects -->
+                <div class="settings-group-header">效果</div>
+                <div class="settings-group settings-group-general">
+                    <div class="settings-block">
+                        <span>外部遮挡:</span>
+                        <input type="checkbox" id="settings-ambient-occlusion" />
+                        <input id="settings-ambient-occlusion-radius" type="number" min="0" max="10" step=".01" class="right-align" />
+                        <div class="right-align">Radius: </div>
+                        <span class="clear-both"></span>
+                    </div>
+                    <div class="settings-block">
+                        <span>反失真:</span>
+                        <input type="checkbox" id="settings-anti-aliasing" class="right-align" />
+                        <span class="clear-both"></span>
+                    </div>
+                </div>
+
+                <!-- axis -->
+                <div class="settings-group-header">轴</div>
+                <div class="settings-group settings-group-general">
+                    <div class="settings-block">
+                        <span>显示XYZ坐标轴:</span>
+                        <input type="checkbox" id="settings-axis-triad" class="right-align" />
+                        <span class="clear-both"></span>
+                    </div>
+                    <div class="settings-block">
+                        <span>显示轴立方体:</span>
+                        <input type="checkbox" id="settings-nav-cube" class="right-align" />
+                        <span class="clear-both"></span>
+                    </div>
+                </div>
+
+                <!-- point cloud -->
+                <div class="settings-group-header">云点</div>
+                <div class="settings-group settings-group-general">
+                    <div class="settings-block">
+                        <span>Enable Splats:</span>
+                        <input type="checkbox" id="settings-splat-rendering-enabled" />
+
+                        <span id="settings-splat-enabled-style" class="grayed-out right-align">
+                                <label>大小: </label>
+                                <input id="settings-splat-rendering-size" step=".01" type="number" />
+
+                                <label>模式:</label>
+                                <select id="settings-splat-rendering-point-size-unit">
+                                    <option value="0">屏幕像素</option>
+                                    <option value="1">CSS</option>
+                                    <option value="2">World</option>
+                                    <option value="3">ScreenWidth</option>
+                                    <option value="4">ScreenHeight</option>
+                                    <option value="5">BoundingDiagonal</option>
+                                </select>
+                            </span>
+                    </div>
+                    <div class="settings-block">
+                        <span>屋顶视角灯光:</span>
+                        <input type="checkbox" id="settings-eye-dome-lighting-enabled" class="right-align" />
+                        <span class="clear-both"></span>
+                    </div>
+                </div>
+
+                <!--color-->
+                <div class="settings-group-header">颜色</div>
+                <div class="settings-group settings-group-colors">
+                    <div class="settings-block">
+                        <div>背景色:</div>
+                        <div>
+                            <input type="text" id="settings-background-top" class='color-picker' data-position="top left" />
+                            <label>顶部</label>
+                        </div>
+                        <div>
+                            <input type="text" id="settings-background-bottom" class='color-picker' data-position="top left" />
+                            <label>底部</label>
+                        </div>
+                    </div>
+                    <div class="settings-block">
+                        <div>几何覆盖:</div>
+                        <div>
+                            <input type="text" id="settings-capping-face-color" class='color-picker' data-position="top left" />
+                            <label>面</label>
+                        </div>
+                        <div>
+                            <input type="text" id="settings-capping-line-color" class='color-picker' data-position="top left" />
+                            <label>线</label>
+                        </div>
+                    </div>
+                    <div class="settings-block">
+                        <div>构件选中颜色:</div>
+                        <input type="text" id="settings-selection-color-body" class='color-picker' data-position="top left" />
+                        <label>子节点</label>
+                        <div>
+                                <span id="settings-selection-color-face-line-style">
+                                    <input type="text" id="settings-selection-color-face-line" class='color-picker' data-position="top left" />
+                                    <label>面、线</label>
+                                </span>
+                        </div>
+                    </div>
+                    <div class="settings-block">
+                        <input type="text" id="settings-measurement-color" class='color-picker' data-position="top left" />
+                        <label style="margin-left:100px">测量颜色</label>
+                    </div>
+                    <div class="settings-block">
+                            <span id="settings-pmi-color-style" class="grayed-out">
+                                <input type="text" id="settings-pmi-color" class='color-picker' data-position="top left" disabled />
+                                <label style="margin-left:100px">PMI Override Color</label>
+                            </span>
+                        <input type="checkbox" id="settings-pmi-enabled" />
+                        <label>打开</label>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="hoops-ui-window-footer">
+                    <div class="hoops-ui-footer-buttons">
+                        <button id="viewer-settings-ok-button">确认</button>
+                        <button id="viewer-settings-cancel-button">取消</button>
+                        <button id="viewer-settings-apply-button">应用</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="propertyWindow" class="propertyWindow ui-resizable">
+            <span>属性窗</span>
+        </div>
+        <div id="specialitySelect">
+            <!--<select [(ngModel)]="selectValue" (ngModelChange)="onSelectChange(selectValue)">
+                <option>请选择</option>
+                <option>装饰</option>
+                <option>结构</option>
+                <option>建筑</option>
+                <option>轴网</option>
+            </select>-->
+        </div>
+    <!--<div id="modelTree" style="border: solid 1px #0c203a; z-index: 100000000;position:absolute;left: 400px;top: 120px;width: 200px;height: 600px">-->
+        <!--123456-->
+    <!--</div>-->
+    <!--<input type="file" ng2FileSelect [uploader]="fileService.uploader" required multiple />-->
+    <!--<button class="btn btn-primary" type="button" (click)="upload()">上传</button>-->
+    </div>
+    <div id="snapshot-dialog" class="hoops-ui-window">
+        <div class="hoops-ui-window-header" style="height: 30px;">模型截图</div>
+        <div class="hoops-ui-window-body">
+            <img id="snapshot-dialog-image" class="snapshot-image" alt="Snapshot" />
+            <div class="snapshot-text">右击可下载图片</div>
+        </div>
+        <div class="hoops-ui-window-footer">
+            <div class="hoops-ui-footer-buttons">
+                <button id="snapshot-dialog-cancel-button">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>

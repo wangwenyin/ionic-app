@@ -1,0 +1,129 @@
+<!--
+  Generated template for the DesignTaskPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-toolbar>
+    <ion-buttons left>
+      <!-- <button ion-button icon-only menuToggle>
+        <ion-icon ios="ios-menu" md="md-menu"></ion-icon>
+      </button> -->
+      <button ion-button icon-only  (click)="onBackPage()">
+        <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>
+      <span>{{projectName}}</span>
+    </ion-title>
+    <ion-buttons right>
+      <!-- <button ion-button icon-only (click)="goProcessSnap()">
+        <ion-icon ios="ios-images" md="md-images"></ion-icon>
+      </button> -->
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-toolbar class="sub-toolbar">
+    <ion-buttons left style="margin-left:6px">
+      <button ion-button>
+        <span padding-left>进度</span>
+      </button>
+    </ion-buttons>
+
+    <ion-toolbar>
+      <div padding>
+        <ion-segment [(ngModel)]="tabs">
+          <ion-segment-button value="needDeal">
+            待办
+          </ion-segment-button>
+          <ion-segment-button value="hasDeal">
+            已办
+          </ion-segment-button>
+        </ion-segment>
+      </div>
+    </ion-toolbar>
+
+    <!-- <ion-title text-center>
+        </ion-title> -->
+    <ion-buttons right style="margin-right:6px">
+      <!-- <button ion-button icon-only (click)="onAddTask($event)" padding-right>
+            <ion-icon ios="ios-create" md="md-create" ></ion-icon>
+          </button> -->
+      <button ion-button icon-only (click)="onSearch($event)">
+        <ion-icon [ngStyle]="{'color':(this.startDate || this.endDate || (this.searchValue && this.searchValue.length>0)) ? '#fc4a4a'  : '#000000' }"
+          ios="ios-funnel" md="md-funnel"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="page-design-task">
+  <ion-refresher (ionRefresh)="onRefresh($event,true)">
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="下拉刷新" refreshingSpinner="circles" refreshingText="正在刷新...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <div [ngSwitch]="tabs">
+    <ion-list *ngSwitchCase="'needDeal'">
+      <!-- <ion-list-header>
+            <h3 item-start padding-left>任务</h3>
+            <ion-icon *ngIf="isGranted('Pages.Design.Teamwork.Task.Create')" ios="ios-create" md="md-create" item-right  padding-right (click)="onAddTask($event)"></ion-icon>
+            <ion-icon ios="md-funnel" md="md-funnel" item-right   padding-right  (click)="onOrder($event)"></ion-icon>
+            <ion-icon ios="ios-search" md="md-search" item-end (click)="onSearch($event)"></ion-icon>
+          </ion-list-header> -->
+      <ion-item-sliding *ngFor="let obj of needList">
+
+        <ion-item (click)="onOpenTask(obj)">
+          <ion-avatar item-end>
+              <ion-icon name="arrow-forward"></ion-icon>
+          </ion-avatar>
+          <h2>{{obj.name}}</h2>
+          <h3>{{obj.finishRate}}%</h3>
+          <p>{{obj.planFinishDate | date:'yyyy-MM-dd'}}</p>
+        </ion-item>
+
+        <!-- <ion-item (click)="onOpenTask(obj)">
+                <h2>任务名称:<b>{{obj.name}}</b></h2>
+                <h3>完成率:{{obj.finishRate}}%</h3>
+              </ion-item> -->
+
+        <!-- <ion-thumbnail item-start>
+                <img *ngIf="obj.priority == 2" src=" assets/CRITICAL.png" />
+                <img *ngIf="obj.priority == 1" src=" assets/HIGH.png" />
+                <img  *ngIf="obj.priority != 2 && obj.priority != 1" src=" assets/NORMAL.png" />
+              </ion-thumbnail> -->
+
+
+        <!--<h3>描述：{{obj.description}}</h3>-->
+        <!-- <h3>{{obj.creationTime | date:'yyyy-MM-dd HH:mm'}}</h3> -->
+
+        <!-- <ion-note item-end>{{getStateText(obj.state)}}</ion-note> -->
+
+      </ion-item-sliding>
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'hasDeal'">
+      <ion-item-sliding *ngFor="let obj of dealList">
+        <ion-item (click)="onOpenTask(obj)">
+            <ion-avatar item-end>
+                <ion-icon name="arrow-forward"></ion-icon>
+            </ion-avatar>
+          <h2>{{obj.name}}</h2>
+          <h3>{{obj.finishRate}}%</h3>
+          <p>{{obj.planFinishDate | date:'yyyy-MM-dd'}}</p>
+          <!-- <h2>{{obj.code}} 、<b>{{obj.name}}</b></h2>
+            <h3>{{obj.finishRate}}%</h3> -->
+          <!--<h3>描述：{{obj.description}}</h3>-->
+          <!-- <h3>{{obj.creationTime | date:'yyyy-MM-dd HH:mm'}}</h3> -->
+
+          <!-- <ion-note item-end>{{getStateText(obj.state)}}</ion-note> -->
+        </ion-item>
+      </ion-item-sliding>
+    </ion-list>
+  </div>
+
+
+  <ion-infinite-scroll (ionInfinite)="onRefresh($event,false)" [enabled]='infiniteScrollEnabled'>
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

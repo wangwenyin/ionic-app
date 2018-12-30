@@ -1,0 +1,107 @@
+
+<ion-header>
+  <ion-navbar>
+    <ion-buttons left>
+      <button ion-button icon-only (click)="onBackPage()">
+        <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title text-center>
+      <span>新增安全巡检</span>
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only  (click)="onSaveRecord()">
+        <ion-icon ios="ios-cloud-done" md="md-cloud-done"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item-group>
+      <ion-item-divider color="light" style="background-color: #dddddd;">
+        巡检信息
+      </ion-item-divider>
+      <ion-item>
+        <ion-label>工程类别</ion-label>
+        <ion-select cancelText="取消" okText="确定" [(ngModel)]="test" (ngModelChange)="changeTerm($event)">
+          <ion-option *ngFor="let val of checkTermList" [value]="val.id">{{val.name}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label>检查项</ion-label>
+        <ion-select cancelText="取消" okText="确定" [(ngModel)]="record.subentryId">
+          <ion-option *ngFor="let val of checkPointList" [value]="val.id">{{val.name}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <!-- <ion-item>
+        <ion-label>分期</ion-label>
+        <ion-select cancelText="取消" okText="确定" [(ngModel)]="record.stages" (ngModelChange)="getBuilding($event)">
+          <ion-option *ngFor="let val of stagesList" [value]="val.id">{{val.name}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label>楼栋</ion-label>
+        <ion-select cancelText="取消" okText="确定" [(ngModel)]="record.building" (ngModelChange)="getUnitList($event)">
+          <ion-option *ngFor="let val of buildingList" [value]="val.id">{{val.name}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label>单元</ion-label>
+        <ion-select cancelText="取消" okText="确定" [(ngModel)]="record.unit" (ngModelChange)="getTitle($event)">
+          <ion-option *ngFor="let val of unitList" [value]="val.id">{{val.name}}</ion-option>
+        </ion-select>
+      </ion-item> -->
+      <ion-item>
+        <ion-label>是否合格</ion-label>
+        <ion-toggle [(ngModel)]="record.isPass"></ion-toggle>
+        <!-- <ion-select okText="确认" cancelText="取消" (ngModelChange)='change($event)' [(ngModel)]="ExamineList.isPass">
+                  <ion-option value="true">合格</ion-option>
+                  <ion-option value="false">不合格</ion-option>
+              </ion-select> -->
+      </ion-item>
+    </ion-item-group>
+    <ion-item-group>
+      <ion-item>
+        <ion-label>模型挂接</ion-label>
+        <ion-toggle [(ngModel)]="!isFromList"></ion-toggle>
+      </ion-item>
+      <ion-item>
+        <ion-label>检查部位</ion-label>
+        <ion-input type="text" [(ngModel)]="record.checkSite"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>检查描述</ion-label>
+        <ion-textarea rows="5" placeholder="请输入检查描述" [(ngModel)]="record.detail" (keyup)="onKey($event,200)"></ion-textarea>
+      </ion-item>
+    </ion-item-group>
+    <ion-item-group>
+      <ion-item-divider color="light">
+        <!-- <ion-icon item-start ios="ios-people" md="md-people"></ion-icon> -->
+        复检人(管监)
+        <ion-icon item-end padding-right ios="ios-arrow-forward" md="md-arrow-forward" (click)="onAddUser()"></ion-icon>
+      </ion-item-divider>
+      <ion-item text-wrap>
+        <ion-label>
+          {{getShowName(userItem)}}
+        </ion-label>
+      </ion-item>
+    </ion-item-group>
+    <ion-item-group>
+      <ion-item-divider color="light">
+        检查图片
+        <ion-icon item-end padding-right ios="ios-image" md="md-image" (click)="onLocalImage()"></ion-icon>
+        <ion-icon item-end padding-right ios="ios-camera" md="md-camera" (click)="onCameraImage()"></ion-icon>
+      </ion-item-divider>
+      <ion-grid>
+        <ion-row>
+          <ion-col col-3 *ngFor="let image of newIamgeFile;let i=index">
+            <img [src]="image.data" imageViewer="OTHER_IMAGE_URL" (click)="onPrvIamge(image.data)">
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item-group>
+  </ion-list>
+</ion-content>
+      

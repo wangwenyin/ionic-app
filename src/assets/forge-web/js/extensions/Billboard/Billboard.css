@@ -1,0 +1,127 @@
+.billboard-container {
+    position: absolute;
+    font-size: 14px;
+    color: #ffffff;
+    line-height: 14px;
+    text-align: left;
+    z-index: 10;
+
+    padding: 7px 7px 7px 7px;
+    /*border: 3px solid rgba(63, 127, 191, 0.8);*/
+    background-color: rgba(67, 67, 67, 0.6);
+    /*border-radius: 5px;*/
+}
+
+.billboard-textarea {
+    display: block;
+    color: black;
+    background-color: rgba(255, 255, 255, 0.9);
+    resize: none;
+    width: 200px;
+    height: auto;
+    font-size: 14px;
+    padding: 5px 5px 5px 5px;
+}
+
+.billboard-control {
+    display: block;
+    text-align: center;
+}
+
+.billboard-button-cancel {
+    display: inline-block;
+    padding: 6px 10px 6px 10px;
+    width: 30%;
+    cursor: pointer;
+    text-align: center;
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+
+    color: black;
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+.billboard-control .billboard-button-cancel:hover {
+    background-color: rgba(166,194,255, 0.7);
+    -webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    -ms-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+}
+
+.billboard-button-accept {
+    display: inline-block;
+    margin: 5px 20px 5px 0px;
+    padding: 6px 10px 6px 10px;
+    width: 30%;
+    cursor: pointer;
+    text-align: center;
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+
+    color: black;
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+.billboard-control .billboard-button-accept:hover {
+    background-color: rgba(166,194,255, 0.7);
+    -webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    -ms-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+}
+
+.billboard-button-accept-greyout {
+    color: rgba(172, 172, 172, 1.0);
+    background-color: rgba(99,99,99, 1.0);
+    border-color: rgba(172, 172, 172, 1.0);
+    pointer-events: none;
+}
+
+.billboard-annotation {
+    position: absolute;
+    font-size: 12px;
+    color: black;
+    line-height: 14px;
+    text-align: left;
+
+    border: 2px solid rgba(0, 113, 113, 0.9);
+    background-color: rgba(205, 234, 247, 0.9);
+    /*border-radius: 5px;*/
+
+    padding: 7px 7px 7px 7px;
+    cursor: pointer;
+    max-width: 200px;
+
+    white-space: pre-line;
+    word-wrap: break-word;
+}
+
+.billboard-annotation-highlight {
+    background-color: rgba(0, 105, 217, 1.0);
+    color: white;
+}
+
+.billboard-marker {
+    position: absolute;
+    font-size: 10px;
+    font-weight: bold;
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+    text-align: center;
+    cursor: pointer;
+    /*pointer-events: none;*/
+
+    color: rgba(23, 87, 168, 1.0);
+    border: 2px solid rgba(23, 87, 168, 1.0);
+    background-color: white;
+    border-radius: 10px;
+
+}

@@ -1,0 +1,13 @@
+page-need-todo {
+  ion-content {
+    .list .item {
+      padding-left: 0;
+      ion-label {
+        overflow: visible;
+        h2 {
+          margin-bottom: 6px;
+        }
+      }
+    }
+  }
+}

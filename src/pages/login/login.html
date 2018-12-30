@@ -1,0 +1,58 @@
+<!--
+  Generated template for the LoginPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<script src="login.ts"></script>
+<!-- <ion-header>
+  <ion-toolbar>
+    <ion-title text-center>
+    </ion-title>
+    
+  </ion-toolbar>
+</ion-header> -->
+<ion-content>
+  <div style="margin-top:22%;text-align: center;">
+    <img style="width:50%;height:50%;" src="assets/loginTop.png">
+    <br/>
+    <div style="margin-top: 10px;margin-left: 8px;">
+      <span style="color: rgb(16,22,52);font-size: 16px;margin-top:34px;letter-spacing:8px">BIM协同管理平台</span>
+    </div>
+    
+  </div>
+  <div class="login-div">
+    <ion-card style="margin: 0px;width: 100%;box-shadow: none;">
+      <ion-item class="input">
+        <ion-label>
+          <img src="assets/user.png">
+        </ion-label>
+        <ion-input type="text" placeholder="手机号/用户名" [(ngModel)]="userName">
+        </ion-input>
+      </ion-item>
+      <ion-item class="input">
+        <ion-label>
+          <img src="assets/password.png">
+        </ion-label>
+        <ion-input type="password" placeholder="密码" [(ngModel)]="password"></ion-input>
+      </ion-item>
+      <!-- <ion-item>
+        <ion-label>记住密码</ion-label>
+        <ion-checkbox color="danger" [(ngModel)]="remeber"></ion-checkbox>
+      </ion-item> -->
+    </ion-card>
+    
+    <button ion-button block ion-button color="danger" class="ths-red" style="margin-top: 51%;"
+      (click)="onLogin(userName,password)">
+      <!-- <ion-icon name="unlock" style="padding-right: 5px"></ion-icon> -->
+      <span style="padding-right: 12px">登</span>
+      <span style="padding-left: 12px"> 录</span>
+    </button>
+    <button ion-button style="float:right;margin-top:-17%;color:rgb(122,122,122);font-size: 14px;
+    margin-top: 10px;
+    margin-left: 33px;"  clear (click)="forget()">忘记密码?</button>
+  </div>
+</ion-content>
+<ion-footer>
+  <!-- <h6 text-center style="font-size: small">版权所有 Copyright © 2018 恒大高科技集团</h6> -->
+</ion-footer>

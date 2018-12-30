@@ -1,0 +1,103 @@
+<!--
+  Generated template for the FileManagePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons left>
+      <button ion-button icon-only  (click)="onBack()">
+        <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+      </button>
+      <!-- <button ion-button icon-only  menuToggle>
+        <ion-icon ios="ios-menu" md="md-menu" ></ion-icon>
+      </button> -->
+    </ion-buttons>
+    <ion-title text-center>
+      <!--<span>{{this.parentDir[this.parentDir.length-1].name}}</span>-->
+      <span>{{this.projectName}}</span>
+    </ion-title>
+    <!--<ion-buttons right>-->
+      <!--<button ion-button icon-only   (click)="onOpenParentDir()">-->
+        <!--<span style="color: #fafafa">{{SetLeftStrEx()}}</span>-->
+      <!--</button>-->
+    <!--</ion-buttons>-->
+  </ion-toolbar>
+  <ion-toolbar class="sub-toolbar">
+    <ion-buttons left style="margin-left:6px">
+      <button ion-button (click)="onOpenParentDir()">
+        <ion-icon *ngIf="this.parentDir.length>1" ios="ios-arrow-back" md="md-arrow-back" ></ion-icon>
+        <span style="padding-left:1em">{{getNowDirName()}}</span>
+      </button>
+    </ion-buttons>
+    <ion-title text-center>
+    </ion-title>
+    <ion-buttons right style="margin-right:6px">
+      <button ion-button icon-only (click)="onSearch($event)">
+        <ion-icon [ngStyle]="{'color':(this.searchValue && this.searchValue.length>0) ? '#fc4a4a'  : '#000000' }"  ios="ios-funnel" md="md-funnel" ></ion-icon>
+      </button>
+      </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="page-file-manage">
+  <ion-refresher (ionRefresh)="onRefresh($event,true)">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="正在刷新...">
+    </ion-refresher-content>
+  </ion-refresher>
+  <ion-list>
+    <!-- <ion-list-header>
+      <ion-icon *ngIf="this.parentDir.length>2" ios="ios-arrow-back" md="md-arrow-back" item-start (click)="onOpenParentDir()"></ion-icon>
+      <h3 (click)="onOpenParentDir()">{{getNowDirName()}}</h3>
+      <ion-icon ios="ios-search" md="md-search" item-end (click)="onSearch($event)"></ion-icon>
+    </ion-list-header> -->
+    <!-- <ion-item  *ngFor="let data of this.dirAndFiles,let i=index"  (click)="onDocClick(data)">
+      <ion-thumbnail item-start>
+        <img [src]="getIcon(data.type)">
+      </ion-thumbnail>
+      <h3>{{data.name}}</h3>
+      <h3>{{data.userName}}</h3>
+      <h3>{{data.creationTime | date:'yyyy-MM-dd HH:mm'}}</h3>
+      <ion-row item-end style="width: 5em;margin: 0px" >
+        <ion-col style="margin: 0px;padding: 0px" text-end>
+          <ion-row   style="height: 38px;">
+            <ion-icon style="margin-left: 3em" ios="ios-arrow-forward" md="md-arrow-forward">
+            </ion-icon>
+          </ion-row>
+          <ion-row text-right>
+            <h6>{{getFileSize(data.type, data.size)}}</h6>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+    </ion-item> -->
+    <ion-item  *ngFor="let data of this.dirAndFiles,let i=index"  (click)="onDocClick(data,$event)">
+      <ion-thumbnail item-start>
+        <img [src]="getIcon(data.type)">
+      </ion-thumbnail>
+      <h3>{{data.name}}</h3>
+      <h3>{{data.userName}}</h3>
+      <h3>{{data.creationTime | date:'yyyy-MM-dd HH:mm'}}</h3>
+      <ion-row item-end style="width: 5em;margin: 0px" (click)="onLocalFileOpen(data,$event)" >
+        <ion-col  style="margin: 0px;padding: 0px">
+          <ion-row   style="height: 38px;">
+            <ion-icon *ngIf="data.type !== 'folder' && data.isDownload"  style="width: 32px;height: 32px;margin-left: 2em"  ios="md-eye" md="md-eye"></ion-icon>
+            <ion-icon *ngIf="!data.isDownload" style="width: 32px;height: 32px;margin-left: 2em">
+              <img *ngIf="data.type !== 'folder' " src="assets/nodownload.png" (click)="onDownloadFile($event,data)">
+            </ion-icon>
+          </ion-row>
+          <ion-row text-right>
+            <h6 right>{{getFileSize(data.type, data.size)}}</h6>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+    </ion-item>
+  </ion-list>
+  <ion-infinite-scroll (ionInfinite)="onRefresh($event,false)" [enabled]='infiniteScrollEnabled'>
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>
+

@@ -1,0 +1,16 @@
+page-quality-check-input {
+  ion-list-header {
+    span {
+      font-size: 2rem
+    }
+  }
+  .row {
+    .col {
+      text-align: center;
+      .button {
+        border-radius: 32px;
+        padding: 0 1.6rem;
+      }
+    }
+  }
+}
